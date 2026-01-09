@@ -1,0 +1,279 @@
+{
+ "meta": {
+  "creator": "cds-dk 9.5.0"
+ },
+ "$version": "2.0",
+ "definitions": {
+  "vinhistoric.HistoricVinData_HeaderSrv": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "elements": {
+    "opportunityID": {
+     "key": true,
+     "type": "cds.String",
+     "length": 35,
+     "notNull": true,
+     "@Common.Label": "{i18n>opportunityID}"
+    },
+    "items": {
+     "type": "cds.Composition",
+     "target": "vinhistoric.HistoricVinData_ItemsSrv",
+     "cardinality": {
+      "max": "*"
+     },
+     "on": [
+      {
+       "ref": [
+        "items",
+        "parent"
+       ]
+      },
+      "=",
+      {
+       "ref": [
+        "$self"
+       ]
+      }
+     ]
+    }
+   },
+   "actions": {
+    "draftPrepare": {
+     "kind": "action",
+     "params": {
+      "in": {
+       "type": "$self"
+      },
+      "SideEffectsQualifier": {
+       "type": "cds.String"
+      }
+     },
+     "returns": {
+      "type": "vinhistoric.HistoricVinData_HeaderSrv"
+     }
+    },
+    "draftActivate": {
+     "kind": "action",
+     "params": {
+      "in": {
+       "type": "$self"
+      }
+     },
+     "returns": {
+      "type": "vinhistoric.HistoricVinData_HeaderSrv"
+     }
+    },
+    "draftEdit": {
+     "kind": "action",
+     "params": {
+      "in": {
+       "type": "$self"
+      },
+      "PreserveChanges": {
+       "type": "cds.Boolean"
+      }
+     },
+     "returns": {
+      "type": "vinhistoric.HistoricVinData_HeaderSrv"
+     }
+    }
+   },
+   "@UI.HeaderInfo.$Type": "UI.HeaderInfoType",
+   "@UI.HeaderInfo.TypeName": "Historic VIN Information",
+   "@UI.HeaderInfo.TypeNamePlural": "Opportunities",
+   "@UI.HeaderInfo.Title.$Type": "UI.DataField",
+   "@UI.HeaderInfo.Title.Value": {
+    "=": "opportunityID"
+   },
+   "@Common.SideEffects#alwaysFetchMessages.$Type": "Common.SideEffectsType",
+   "@Common.SideEffects#alwaysFetchMessages.SourceEntities": [
+    {
+     "=": "($self)"
+    }
+   ],
+   "@Common.SideEffects#alwaysFetchMessages.TargetProperties": [
+    "DraftMessages"
+   ],
+   "@Common.Messages": {
+    "=": "DraftMessages"
+   }
+  },
+  "vinhistoric.HistoricVinData_ItemsSrv": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "elements": {
+    "ID": {
+     "key": true,
+     "type": "cds.UUID",
+     "notNull": true,
+     "@Core.ComputedDefaultValue": true
+    },
+    "customerID": {
+     "type": "cds.String",
+     "length": 10,
+     "@Common.Label": "{i18n>customerID}"
+    },
+    "vinID": {
+     "type": "cds.String",
+     "length": 60,
+     "@Common.Label": "{i18n>vinID}"
+    },
+    "productID": {
+     "type": "cds.String",
+     "length": 60,
+     "@Common.Label": "{i18n>productID}"
+    },
+    "product_Desc": {
+     "type": "cds.String",
+     "@Common.Label": "{i18n>product_Desc}"
+    },
+    "make_OE": {
+     "type": "cds.String",
+     "@Common.Label": "{i18n>make_oe}"
+    },
+    "model": {
+     "type": "cds.String",
+     "@Common.Label": "{i18n>model}"
+    },
+    "year": {
+     "type": "cds.String",
+     "length": 4,
+     "@Common.Label": "{i18n>Year}"
+    },
+    "parent": {
+     "type": "cds.Association",
+     "target": "vinhistoric.HistoricVinData_HeaderSrv",
+     "cardinality": {
+      "max": 1
+     },
+     "keys": []
+    },
+    "parent_opportunityID": {
+     "type": "cds.String",
+     "length": 35
+    }
+
+
+   },
+   "actions": {
+    "draftPrepare": {
+     "kind": "action",
+     "params": {
+      "in": {
+       "type": "$self"
+      },
+      "SideEffectsQualifier": {
+       "type": "cds.String"
+      }
+     },
+     "returns": {
+      "type": "vinhistoric.HistoricVinData_ItemsSrv"
+     }
+    }
+   },
+   "@Common.SideEffects#alwaysFetchMessages.$Type": "Common.SideEffectsType",
+   "@Common.SideEffects#alwaysFetchMessages.SourceEntities": [
+    {
+     "=": "($self)"
+    }
+   ],
+   "@Common.SideEffects#alwaysFetchMessages.TargetProperties": [
+    "DraftMessages"
+   ],
+   "@Common.Messages": {
+    "=": "DraftMessages"
+   }
+  },
+  "vinhistoric.DraftAdministrativeData": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "elements": {
+    "DraftUUID": {
+     "key": true,
+     "type": "cds.UUID",
+     "notNull": true,
+     "@UI.Hidden": true,
+     "@Common.Label": "{i18n>Draft_DraftUUID}",
+     "@Core.ComputedDefaultValue": true
+    },
+    "CreationDateTime": {
+     "type": "cds.Timestamp",
+     "@odata.Precision": 7,
+     "@odata.Type": "Edm.DateTimeOffset",
+     "@Common.Label": "{i18n>Draft_CreationDateTime}"
+    },
+    "CreatedByUser": {
+     "type": "cds.String",
+     "length": 256,
+     "@Common.Label": "{i18n>Draft_CreatedByUser}"
+    },
+    "DraftIsCreatedByMe": {
+     "type": "cds.Boolean",
+     "@UI.Hidden": true,
+     "@Common.Label": "{i18n>Draft_DraftIsCreatedByMe}"
+    },
+    "LastChangeDateTime": {
+     "type": "cds.Timestamp",
+     "@odata.Precision": 7,
+     "@odata.Type": "Edm.DateTimeOffset",
+     "@Common.Label": "{i18n>Draft_LastChangeDateTime}"
+    },
+    "LastChangedByUser": {
+     "type": "cds.String",
+     "length": 256,
+     "@Common.Label": "{i18n>Draft_LastChangedByUser}"
+    },
+    "InProcessByUser": {
+     "type": "cds.String",
+     "length": 256,
+     "@Common.Label": "{i18n>Draft_InProcessByUser}"
+    },
+    "DraftIsProcessedByMe": {
+     "type": "cds.Boolean",
+     "@UI.Hidden": true,
+     "@Common.Label": "{i18n>Draft_DraftIsProcessedByMe}"
+    }
+   },
+   "@Common.Label": "{i18n>Draft_DraftAdministrativeData}"
+  },
+  "vinhistoric.DRAFT_DraftAdministrativeData_DraftMessage": {
+   "kind": "type",
+   "@cds.external": true,
+   "elements": {
+    "code": {
+     "type": "cds.String"
+    },
+    "message": {
+     "type": "cds.String"
+    },
+    "target": {
+     "type": "cds.String"
+    },
+    "additionalTargets": {
+     "items": {
+      "type": "cds.String"
+     }
+    },
+    "transition": {
+     "type": "cds.Boolean"
+    },
+    "numericSeverity": {
+     "type": "cds.Integer",
+     "@odata.Type": "Edm.Byte"
+    },
+    "longtextUrl": {
+     "type": "cds.String"
+    }
+   }
+  },
+  "vinhistoric": {
+   "kind": "service",
+   "@cds.external": true,
+   "@odata.containment": true,
+   "@Common.AddressViaNavigationPath": true
+  }
+ }
+}

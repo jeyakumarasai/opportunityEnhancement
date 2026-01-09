@@ -1,0 +1,78 @@
+###
+GET http://localhost:4004/odata/v4/vinlog/vinHeaderSrv
+
+###  new data
+GET http://localhost:4004/odata/v4/vinlog/vinHeaderSrv('5cfec51f-34c8-451c-968c-f3c0e5b17490')
+
+###
+
+GET http://localhost:4004/odata/v4/vinlog/vinSuccessSrv
+
+###
+
+GET http://localhost:4004/odata/v4/vinlog/vinFailureSrv
+###
+
+###
+
+GET http://localhost:4004/odata/v4/vinlog/vinHeaderSrv('46d60ec7-7a4d-4d63-bdc4-15acbe2c443c')?$expand=items_success
+###
+POST http://localhost:4004/odata/v4/vinlog/vinHeaderSrv
+Content-Type: application/json
+
+{
+
+   "opportunityID":"45678"
+}
+
+###
+POST http://localhost:4004/odata/v4/vinlog/vinSuccessSrv
+Content-Type: application/json
+
+
+{
+    "customerID":"675432",
+    "vinID":"76543",
+    "productID":"MAT2345",
+    "product_Desc":"New Product",
+    "make_OE":"RFQ123",
+    "model":"New",
+    "year":"2025",
+    "parent_ID":"5cfec51e-34b9-451c-968a-f3c0e5a17490"
+    
+}
+
+###
+POST http://localhost:4004/odata/v4/vinlog/vinFailureSrv
+Content-Type: application/json
+
+
+{
+    
+    "customerID":"675432",
+    "vinID":"7654367",
+    "productID":"MAT2345788",
+    "make_OE":"RFQ12366",
+    "model":"New",
+    "year":"2025",
+    "errorMessage" : "Vin numbet is not available",
+    "parent_ID":"5cfec51e-34b9-451c-968a-f3c0e5a17490"
+    
+
+}
+
+//With Authorization
+###
+GET http://localhost:4004/odata/v4/vinlog/vinHeaderSrv
+Authorization: Basic jey:
+
+###
+
+GET http://localhost:4004/odata/v4/vinlog/vinSuccessSrv
+Authorization: Basic jey:
+
+###
+
+DELETE  http://localhost:4004/odata/v4/vinlog/vinHeaderSrv(opportunityID='50006',IsActiveEntity=true)/items_success(ID=5cfec51f-34b9-451d-968a-f3c0e5a17480,IsActiveEntity=true) 
+Authorization: Basic jey:
+

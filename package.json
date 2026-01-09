@@ -1,0 +1,93 @@
+{
+  "name": "vinlog",
+  "version": "1.0.0",
+  "description": "A simple CAP project.",
+  "dependencies": {
+    "@cap-js-community/odata-v2-adapter": "^1.15.7",
+    "@cap-js/hana": "^2",
+    "@sap-cloud-sdk/connectivity": "^4.2.0",
+    "@sap-cloud-sdk/http-client": "^4.2.0",
+    "@sap-cloud-sdk/resilience": "^4.2.0",
+    "@sap/cds": "^9",
+    "@sap/xssec": "^4",
+    "csv-parse": "^6.1.0",
+    "express": "^4"
+  },
+  "devDependencies": {
+    "@cap-js/sqlite": "^2",
+    "@sap/cds-dk": "^9",
+    "cds-plugin-ui5": "^0.13.0",
+    "mbt": "^1.2.29",
+    "rimraf": "^5.0.5"
+  },
+  "scripts": {
+    "start": "cds-serve",
+    "watch-vnlog": "cds watch --open vnlog/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "undeploy": "cf undeploy vinlog --delete-services --delete-service-keys --delete-service-brokers",
+    "build": "rimraf resources mta_archives && mbt build --mtar archive",
+    "deploy": "cf deploy mta_archives/archive.mtar --retries 1"
+  },
+  "private": true,
+  "cds": {
+    "requires": {
+      "auth": {
+        "[development]": {
+          "strategy": "mocked",
+          "users": {
+            "jey": {
+              "roles": [
+                "Reader",
+                "Writer"
+              ]
+            }
+          }
+        },
+        "[production]": {
+          "kind": "xsuaa",
+          "name": "vinlog-auth"
+        }
+      },
+      "OpportunityService": {
+        "kind": "rest",
+        "[development]": {
+          "credentials": {
+            "url": "https://my1002011.de1.test.crm.cloud.sap"
+          }
+        },
+        "[production]": {
+          "credentials": {
+            "destination": "SalesServiceCloudV2"
+          }
+        }
+      },
+      "vinhistoric": {
+        "kind": "odata",
+        "model": "srv/external/vinhistoric",
+        "[production]": {
+          "credentials": {
+            "destination": "SalesCloudV2_Vin_History_Update"
+          }
+        }
+      },
+      "NHTSA": {
+        "kind": "rest",
+        "[development]": {
+          "credentials": {
+            "url": "https://vpic.nhtsa.dot.gov"
+          }
+        },
+        "[production]": {
+          "credentials": {
+            "destination": "SalesCloudV2_NHSTA_VIN_Validation"
+          }
+        }
+      }
+    }
+  },
+  "workspaces": [
+    "app/*"
+  ],
+  "sapux": [
+    "app/vnlog"
+  ]
+}

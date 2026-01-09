@@ -1,0 +1,20 @@
+{
+  "welcomeFile": "vnlog/webapp/",
+  "authenticationMethod": "route",
+  "sessionTimeout": 10,
+  "routes": [
+    {
+      "source": "^/vnlog/webapp/(.*)$",
+      "target": "$1",
+      "localDir": "vnlog/webapp",
+      "authenticationType": "xsuaa",
+      "csrfProtection": false
+    },
+    {
+      "source": "^/(.*)$",
+      "authenticationType": "xsuaa",
+      "destination": "srv-api",
+      "csrfProtection": false
+    }
+  ]
+}

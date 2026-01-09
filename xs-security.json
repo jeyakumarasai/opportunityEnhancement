@@ -1,0 +1,30 @@
+{
+  "tenant-mode": "dedicated",
+  "description": "Security profile of called application",
+  "scopes": [
+     { "name": "$XSAPPNAME.Reader", "description": "Read access"},
+     { "name": "$XSAPPNAME.Writer", "description": "Write access" }
+  ],
+  "attributes": [],
+  "role-templates": [
+     {
+      "name": "Reader",
+      "description": "Can read VinLog Data",
+      "scope-references": ["$XSAPPNAME.Reader"]
+    },
+      {
+      "name": "Writer",
+      "description": "Can read and write VinLog Data",
+      "scope-references": ["$XSAPPNAME.Reader","$XSAPPNAME.Writer"]
+    }
+  ],
+  "authorities":["$ACCEPT_GRANTED_AUTHORITIES"],
+  "oauth2-configuration": {
+                    "token-validity": 900, 
+                    "redirect-uris": ["https://kb-dev-salescloudv2-vinlog.cfapps.eu20-001.hana.ondemand.com/login/callback"], 
+                    "credential-types": ["binding-secret","x509"]
+ },
+
+ "xsenableasyncservice":"true"
+  
+}
