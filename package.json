@@ -81,7 +81,10 @@
             "destination": "SalesCloudV2_NHSTA_VIN_Validation"
           }
         }
-      }
+      },
+      "destinations": true,
+      "html5-repo": true,
+      "workzone": true
     }
   },
   "workspaces": [
