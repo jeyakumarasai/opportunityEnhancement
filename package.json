@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "A simple CAP project.",
   "dependencies": {
-    "@cap-js-community/odata-v2-adapter": "^1.15.7",
     "@cap-js/hana": "^2",
     "@sap-cloud-sdk/connectivity": "^4.2.0",
     "@sap-cloud-sdk/http-client": "^4.2.0",
