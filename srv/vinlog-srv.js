@@ -1,37 +1,28 @@
 const cds = require('@sap/cds');
-const axios = require('axios');
 const { SELECT, INSERT, DELETE, UPDATE } = require('@sap/cds/lib/ql/cds-ql');
 const { parse } = require('csv-parse/sync');
-const { executeHttpRequest } = require('@sap-cloud-sdk/http-client');
-const { getDestination } = require('@sap-cloud-sdk/connectivity');
-const { contentType } = require('express/lib/response');
-const { destinationCache } = require('@sap-cloud-sdk/connectivity/dist/scp-cf');
+//const { executeHttpRequest } = require('@sap-cloud-sdk/http-client');
+//const { getDestination } = require('@sap-cloud-sdk/connectivity');
+//const { contentType } = require('express/lib/response');
+//const { destinationCache } = require('@sap-cloud-sdk/connectivity/dist/scp-cf');
 
 module.exports = cds.service.impl(async function () {
   const { vinHeaderSrv } = this.entities;
   const VinHeader = cds.entities['db.vinlog.vinheader'];
   const VinFailure = cds.entities['db.vinlog.vinfailure'];
   const VinSuccess = cds.entities['db.vinlog.vinsuccess'];
+  const HistoricVinHeader = cds.entities['db.vinlog.historicvindata_header'];
+  const HistoricVinItems = cds.entities['db.vinlog.historicvindata_items'];
   var vincount = 0;
   const salescloud = await cds.connect.to('OpportunityService');
-  const historic = await cds.connect.to('vinhistoric');
-  //const historicdata = await cds.connect.to('vinhistoric');
+
   //Upload CSV logic
   const log = cds.log('uploadCSV');
   let mess = " ";
+
   this.on('uploadCSV', async (req) => {
     try {
-      if(!historic)
-      {
-        successMessage = "Unable to fetch destination vinhistoric";
-        return successMessage
-      } 
-     const { HistoricVinData_ItemsSrv } = historic.entities;
-     if(!HistoricVinData_ItemsSrv)
-     {
-        successMessage = "Unable to fetch entities HistoricVinData_ItemsSrv";
-        return successMessage
-     }
+
       log.info("handler reached");
       mess = "handler reached";
       const { opportunityID, content } = req.data;
@@ -55,20 +46,19 @@ module.exports = cds.service.impl(async function () {
         console.error("Failed to fetch opportunity:", err.message);
         successMessage = "Unable to fetch opportunity details";
         log.info("Failed to fetch opportunity");
-        return { successMessage  };
+        return { successMessage };
       }
 
-      //const historic = await cds.connect.to('vinhistoric');
       const value = restAPIResponse.value[0];
       if (!value) {
         successMessage = "Opportunity not found";
         log.info("Opportunity not found");
-        return {successMessage };
+        return { successMessage };
       }
 
       if (value.documentType !== "ZFO") {
         successMessage = "Only ZFO opportunities are supported";
-        return {  successMessage };
+        return { successMessage };
       }
 
       const exitsVinucces = await SELECT.one.from(VinSuccess)
@@ -110,6 +100,7 @@ module.exports = cds.service.impl(async function () {
       const errorexistingVINs = await SELECT.from(VinFailure, ['vinID']).where({ parent_opportunityID: opportunityID });
       console.log("executed vin failure query check")
       const existingSet = new Set(existingVINs.map(r => r.vinID));
+      // const historicvinData = await SELECT.from(HistoricVinItems).where({ parent_opportunityID: opportunityID });
       //  Filter out VINs already in DB 
       const newRecords = records.filter(rec => !existingSet.has(rec.VINID));
 
@@ -134,23 +125,23 @@ module.exports = cds.service.impl(async function () {
             });
             result = response.Results[0];
           } catch (e) {
-              successMessage = "failure to fetch VIN details in NHTSA";
-              log.info("ailure to fetch VIN details in NHTSA");
-            return successMessage ;
+            successMessage = "failure to fetch VIN details in NHTSA";
+            log.info("ailure to fetch VIN details in NHTSA");
+            return successMessage;
           }
 
           if (result.ErrorCode == 0) // Check response code from API
           {
             if (oe == result.MakeID) {                  // Check if opportunity OE is matching with API OE
               console.log("OE value is matching")
-              var resultItem ;
+              var resultItem;
               try {
-                 resultItem = await historic.run(SELECT.from(HistoricVinData_ItemsSrv).where({ vinID: item.VINID }))
+                resultItem = await SELECT.one.from(HistoricVinItems).where({ vinID: item.vinID });
               } catch (error) {
                 successMessage = "Reading Data from Vinhistoric is failed";
-                  return  successMessage ;
+                return successMessage;
               }
-              if (resultItem.length == 0) {
+              if (resultItem) {
                 //----------------------------------------------------------------------------
                 var newEntrySucc = {
                   vinID: item.VINID,
@@ -240,7 +231,7 @@ module.exports = cds.service.impl(async function () {
       console.error("Unexpected error in uploadCSV:", err.message);
       successMessage = "Unexpected error occurred during upload";
       successMessage = successMessage + mess;
-      return successMessage ;
+      return successMessage;
     }
   });
 
@@ -543,5 +534,331 @@ module.exports = cds.service.impl(async function () {
       }
     }
     return "updated successfully";
+  });
+
+  this.on('Update', async (req) => {
+    const { opportunityID } = req.data;
+    const salescloud = await cds.connect.to('OpportunityService');
+    const restAPIResponse = await salescloud.send({
+      method: 'GET',
+      path: `/opportunity-service/opportunities?$filter=displayId eq '${opportunityID}'`,
+      headers: { Accept: 'application/json' }
+    });
+    const value = restAPIResponse.value[0];
+    const entensionfield = value.extensions;
+    const items = value.items;
+    const account = value.account;
+    var createHeaderData = true;
+    console.log(value.id)
+    console.log(value.displayId)
+    var ETag = value.adminData.updatedOn;
+    console.log('Etag value', ETag)
+
+    const vinsuccess = await SELECT.from(VinSuccess).where({ parent_opportunityID: opportunityID });
+    const historicHeader = await SELECT.from(HistoricVinHeader).where({ parent_opportunityID: opportunityID });
+    if (historicHeader.length > 0) {
+      createHeaderData = false;
+    }
+
+    // Check if Opportunity Type is ZFO
+    if (value.documentType == "ZFO") {
+      const approvalstatus = value.approvalStatus;
+      //const approvalstatus = "APPROVED";
+      const customStatus = value.customStatus;
+      if (approvalstatus == "APPROVED") // if status is approved
+      {
+        //const vinlogResponse = vinlogSuccess.value;
+        var vinCount = vinsuccess.length;
+        //var vinCount = 4;
+        //Upate Vinsuccess table date and time 
+        const now = new Date();
+        UPDATE(vinsuccess)
+          .set({ dateTime: now }
+            .where({ parent_opportunityID: opportunityID })
+            .and('dateTime is null')
+          );
+
+        // const currentDate = new Date().toISOString();
+        // vinlogResponse.forEach(async element => {
+        //   if(element.dateTime == null)
+        //   {
+        //    await vinlog.run(
+        //         UPDATE('vinlogService.vinSuccessSrv')
+        //         .set({ dateTime: currentDate})
+        //         .where({ vinID: element.vinID, parent_opportunityID: opportunityID })
+        //             );
+        //     }
+        // });
+
+        //Create Vinhistoric Header Data
+        if (createHeaderData) {
+          const histHeader = { opportunityID: opportunityID };
+          await INSERT.into(HistoricVinHeader).entries(histHeader);
+        }
+        //Create item Data
+        const newEntries = [];
+        vinsuccess.forEach(element => {
+          items.forEach(item => {
+            newEntries.push({
+              vinID: element.VINID,
+              make_OE: element.MakeID,
+              model: element.ModelID,
+              year: element.ModelYear,
+              customerID: account.displayId,
+              parent_opportunityID: opportunityID,
+              productID: item.productID,
+              product_Desc: item.productDescriptions
+            });
+          });
+        });
+        // single bulk insert
+        await INSERT.into(HistoricVinItems).entries(newEntries);
+
+        //Update reports fields
+        const vinSuccesUpdate = await SELECT.from(vinsuccess).where({ parent_opportunityID: opportunityID });
+        var UpdatepayloadQ;
+        var q1Vincount = 0;
+        var q1SpecValue = 0;
+        var q2Vincount = 0;
+        var q2SpecValue = 0;
+        var q3Vincount = 0;
+        var q3SpecValue = 0;
+        var q4Vincount = 0;
+        var q4SpecValue = 0;
+        var total = 0;
+        vinSuccesUpdate.forEach(async element => {
+          var dt = new Date(element.dateTime);
+          var year = dt.getFullYear();
+          var month = dt.getMonth() + 1; // 1–12
+          var day = dt.getDate();
+          if (month >= 1 && month <= 3) {
+            q1Vincount = q1Vincount + 1;
+          }
+          else if (month >= 4 && month <= 6) {
+            q2Vincount = q2Vincount + 1;
+          } else if (month >= 7 && month <= 9) {
+            q3Vincount = q3Vincount + 1;
+          } else if (month >= 10 && month <= 12) {
+            q4Vincount = q4Vincount + 1;
+          }
+        });
+        q1SpecValue = Number(q1Vincount) * Number(entensionfield.SpecValueUnit.content);
+        q2SpecValue = Number(q2Vincount) * Number(entensionfield.SpecValueUnit.content);
+        q3SpecValue = Number(q3Vincount) * Number(entensionfield.SpecValueUnit.content);
+        q4SpecValue = Number(q4Vincount) * Number(entensionfield.SpecValueUnit.content);
+        total = Number(q1SpecValue) + Number(q2SpecValue) + Number(q3SpecValue) + Number(q4SpecValue);
+        UpdatepayloadQ = {
+          "extensions":
+          {
+            "A1DNA-VinCount": String(vinCount),
+            "Q1VinCount": Number(q1Vincount),
+            "Q1SpecValue": {
+              "content": Number(q1SpecValue),
+              "currencyCode": String(value.totalExpectedNetAmount.currencyCode)
+            },
+            "Q2VINCount": Number(q2Vincount),
+            "Q2SpecValue": {
+              "content": Number(q2SpecValue),
+              "currencyCode": String(value.totalExpectedNetAmount.currencyCode)
+            },
+            "Q3VINCount": Number(q3Vincount),
+            "Q3SpecValue": {
+              "content": Number(q3SpecValue),
+              "currencyCode": String(value.totalExpectedNetAmount.currencyCode)
+            },
+            "Q4VINCount": Number(q4Vincount),
+            "Q4SpecValue": {
+              "content": Number(q4SpecValue),
+              "currencyCode": String(value.totalExpectedNetAmount.currencyCode)
+            },
+            "SpecValueQ1": {
+              "content": Number(total),
+              "currencyCode": String(value.totalExpectedNetAmount.currencyCode)
+            }
+
+          }
+        };
+
+        if (UpdatepayloadQ) {
+          try {
+            const respQ1 = await salescloud.send({
+              method: 'PATCH', path: `opportunity-service/opportunities/${value.id}`,
+              headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'If-Match': ETag
+              },
+              data: UpdatepayloadQ
+            });
+
+          } catch (e) {
+            console.error('STATUS:', e.reason?.response?.status);
+            console.error('HEADERS:', e.reason?.response?.headers);
+            console.error('BODY:', JSON.stringify(e.reason?.response?.data, null, 2));
+            throw e;
+          }
+        }
+
+      }
+      // Other than approval status
+      else if (customStatus == "FC") {
+        const UpdatedVinCount = entensionfield['A1DNA-VinCount']
+        //Calculate spec value per unit
+        var totalNegotiatedValue = value.totalExpectedNetAmount.content;
+        var Specvalue = Number(totalNegotiatedValue) / Number(UpdatedVinCount);
+        //Updating vehicle Quantity from Vin Count and Spec value per unit
+        const Updatepayload = {
+          "extensions":
+          {
+            "A1DNA-VehicalQuantity": String(UpdatedVinCount),
+            "SpecValueUnit": {
+              "content": String(Specvalue),
+              "currencyCode": String(value.totalExpectedNetAmount.currencyCode)
+            }
+          }
+        };
+
+        try {
+          const respFC = await salescloud.send({
+            method: 'PATCH', path: `opportunity-service/opportunities/${value.id}`,
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json',
+              'If-Match': ETag
+            },
+            data: Updatepayload
+          });
+
+        } catch (e) {
+          console.error('STATUS:', e.reason?.response?.status);
+          console.error('HEADERS:', e.reason?.response?.headers);
+          console.error('BODY:', JSON.stringify(e.reason?.response?.data, null, 2));
+          throw e;
+        }
+
+        items.forEach(async item => {
+          console.log("ID:", item.id);
+          console.log("Quantity:", item.quantity.content);
+          var uom = item.quantity.uomCode;
+          var itempayload = {
+            "quantity":
+            {
+              "content": String(UpdatedVinCount),
+              "uomCode": String(uom)
+            }
+          };
+          try {
+            // Read ETag
+            const restEtag = await salescloud.send({
+              method: 'GET',
+              path: `/opportunity-service/opportunities?$filter=displayId eq '${opportunityID}'`,
+              headers: { Accept: 'application/json' }
+            });
+            ETag = restEtag.value[0].adminData.updatedOn;
+
+            const respItem = await salescloud.send({
+              method: 'PATCH', path: `opportunity-service/opportunities/${value.id}/items/${item.id}`,
+              headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'If-Match': ETag
+              },
+              data: itempayload
+            });
+
+          } catch (e) {
+            console.error('STATUS:', e.reason?.response?.status);
+            console.error('HEADERS:', e.reason?.response?.headers);
+            console.error('BODY:', JSON.stringify(e.reason?.response?.data, null, 2));
+            throw e;
+          }
+
+        });
+
+      }
+      else {
+        if ((customStatus != "FC")) {
+          // Every Opportuity save check the vehicle quantity and update the item(if changes in vehicle quantity then update)
+          const vehicleQuantity = entensionfield['A1DNA-VehicalQuantity']
+          items.forEach(async item => {
+            var itemquantity = item.quantity.content;
+            if (Number(itemquantity != Number(vehicleQuantity))) {
+              console.log("ID:", item.id);
+              console.log("Quantity:", item.quantity.content);
+              var uom1 = item.quantity.uomCode;
+              var itempayload1 = {
+                "quantity":
+                {
+                  "content": String(vehicleQuantity),
+                  "uomCode": String(uom1)
+                }
+              };
+              try {
+                const resp = await salescloud.send({
+                  method: 'PATCH', path: `opportunity-service/opportunities/${value.id}/items/${item.id}`,
+                  headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'If-Match': ETag
+                  },
+                  data: itempayload1
+                });
+
+              } catch (e) {
+                console.error('STATUS:', e.reason?.response?.status);
+                console.error('HEADERS:', e.reason?.response?.headers);
+                console.error('BODY:', JSON.stringify(e.reason?.response?.data, null, 2));
+                throw e;
+              }
+
+            }
+          });
+
+
+          //Calculate spec value per unit
+          var oldSpecvalue = entensionfield.SpecValueUnit.content;
+          var totalNegotiatedValue1 = value.totalExpectedNetAmount.content;
+          var Specvalue1 = Number(totalNegotiatedValue1) / Number(vehicleQuantity);
+          //Updating Spec Value if any change in vehicle quantity
+          if (Number(oldSpecvalue) != Specvalue1) {
+            const Updatepayload1 = {
+              "extensions":
+              {
+                "SpecValueUnit": {
+                  "content": Number(Specvalue1),
+                  "currencyCode": String(value.totalExpectedNetAmount.currencyCode)
+                }
+              }
+            };
+
+            try {
+              const restEtag1 = await salescloud.send({
+                method: 'GET',
+                path: `/opportunity-service/opportunities?$filter=displayId eq '${opportunityID}'`,
+                headers: { Accept: 'application/json' }
+              });
+              ETag = restEtag1.value[0].adminData.updatedOn;
+              const resp = await salescloud.send({
+                method: 'PATCH', path: `opportunity-service/opportunities/${value.id}`,
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Accept': 'application/json',
+                  'If-Match': ETag
+                },
+                data: Updatepayload1
+              });
+
+            } catch (e) {
+              console.error('STATUS:', e.reason?.response?.status);
+              console.error('HEADERS:', e.reason?.response?.headers);
+              console.error('BODY:', JSON.stringify(e.reason?.response?.data, null, 2));
+              throw e;
+            }
+          }
+
+        }
+      }
+    }
+
   });
 });

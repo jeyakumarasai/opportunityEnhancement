@@ -60,15 +60,6 @@
           }
         }
       },
-      "vinhistoric": {
-        "kind": "odata",
-        "model": "srv/external/vinhistoric",
-        "[production]": {
-          "credentials": {
-            "destination": "SalesCloudV2_Vin_History_Update"
-          }
-        }
-      },
       "NHTSA": {
         "kind": "rest",
         "[development]": {
