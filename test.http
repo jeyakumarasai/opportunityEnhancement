@@ -73,6 +73,42 @@ Authorization: Basic jey:
 
 ###
 
-DELETE  http://localhost:4004/odata/v4/vinlog/vinHeaderSrv(opportunityID='50006',IsActiveEntity=true)/items_success(ID=5cfec51f-34b9-451d-968a-f3c0e5a17480,IsActiveEntity=true) 
+GET http://localhost:4004/odata/v4/vinlog/vinFailureSrv
 Authorization: Basic jey:
+
+###
+
+###
+
+GET http://localhost:4004/odata/v4/vinlog/historicvindata_HeaderSrv
+Authorization: Basic jey:
+
+###
+
+GET http://localhost:4004/odata/v4/vinlog/HistoricVinData_ItemsSrv
+Authorization: Basic jey:
+
+###
+
+DELETE  http://localhost:4004/odata/v4/vinlog/vinHeaderSrv(opportunityID='50006',IsActiveEntity=true)/items_success(ID=8ffdd74a-ac6f-48c6-8328-72a0611fc113,IsActiveEntity=true) 
+Authorization: Basic jey:
+
+###
+PATCH http://localhost:4004/odata/v4/vinlog/vinHeaderSrv(opportunityID='50006',IsActiveEntity=true)/items_success(ID=31fb2e30-1cab-4567-8350-fa245812d74a,IsActiveEntity=true) 
+Authorization: Basic jey:
+Content-Type: application/json
+
+
+{
+    "dateTime": "2026-02-06T12:35:09Z"
+}
+
+###
+POST http://localhost:4004/odata/v4/vinlog/Update
+Content-Type: application/json
+
+{
+   "opportunityID": "50006"
+   
+}
 

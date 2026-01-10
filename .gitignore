@@ -9,6 +9,7 @@ gen/
 node_modules/
 target/
 
+
 # Web IDE, App Studio
 .che/
 .gen/
@@ -29,9 +30,10 @@ mta_archives/
 # IDEs
 # .vscode
 # .idea
-
+.env
 # @cap-js/cds-typer
 @cds-models
 
 # auto generated wildcard
 db/.env
+db/data

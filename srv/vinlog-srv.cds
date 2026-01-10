@@ -85,38 +85,38 @@ service vinlogService {
   entity historicvindata_HeaderSrv @(restrict: [
     {
       grant: 'READ',
-      to   : 'Read'
+      to   : 'Reader'
     },
     {
       grant: 'CREATE',
-      to   : 'Write'
+      to   : 'Writer'
     },
     {
       grant: 'UPDATE',
-      to   : 'Write'
+      to   : 'Writer'
     },
     {
       grant: 'DELETE',
-      to   : 'Write'
+      to   : 'Writer'
     }
   ]) as projection on historicvindata_header;
 
   entity HistoricVinData_ItemsSrv @(restrict: [
     {
       grant: 'READ',
-      to   : 'Read'
+      to   : 'Reader'
     },
     {
       grant: 'CREATE',
-      to   : 'Write'
+      to   : 'Writer'
     },
     {
       grant: 'UPDATE',
-      to   : 'Write'
+      to   : 'Writer'
     },
     {
       grant: 'DELETE',
-      to   : 'Write'
+      to   : 'Writer'
     }
   ]) as projection on historicvindata_items;
 
