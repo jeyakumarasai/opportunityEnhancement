@@ -66,8 +66,12 @@ sap.ui.define([
                        .then((data) => {
                        // OData V4 returns the action result as { value: [...] }
                           const rows = data?.value ?? data;
+                          if (rows) {
+                            MessageToast.show(rows);
+                          }
+                          else {
                           //this.getView().getModel("result").setData(rows || []);
-                         MessageToast.show("Processing complete.");
+                         MessageToast.show("Processing complete.");}
                          closeDialog();
                        })
                         .catch((err) => {
@@ -81,6 +85,7 @@ sap.ui.define([
                          }
                          console.log(message)
                          MessageToast.show(message);
+                         closeDialog();
                       });
                     //setDialogBusy(true)
                    // var oFileUploader = byId("uploader")
