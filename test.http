@@ -108,7 +108,7 @@ POST http://localhost:4004/odata/v4/vinlog/Update
 Content-Type: application/json
 
 {
-   "opportunityID": "50006"
+   "opportunityID": "50061"
    
 }
 
