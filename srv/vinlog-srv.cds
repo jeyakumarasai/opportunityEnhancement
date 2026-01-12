@@ -121,9 +121,9 @@ service vinlogService {
   ]) as projection on historicvindata_items;
 
 
-  action uploadCSV @(requires: 'Writer')(opportunityID: String(35), content: LargeString) returns String;
+  action uploadCSV(opportunityID: String(35), content: LargeString)     returns String;
 
-  action Update(opportunityID: String)                                                    returns Boolean;
+  action Update(opportunityID: String)                                  returns Boolean;
 
   @open
   type object {};
@@ -131,9 +131,9 @@ service vinlogService {
   action OpportunityUpdate(entity: String,
                            beforeImage: object,
                            currentImage: object,
-                           context: object)                                               returns object;
+                           context: object)                             returns object;
 
-  action uploadMiGTemp(opportunityID: String(35), content: LargeString)                   returns String;
+  action uploadMiGTemp(opportunityID: String(35), content: LargeString) returns String;
 
 
 }
