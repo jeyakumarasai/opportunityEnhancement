@@ -1,5 +1,7 @@
 const cds = require('@sap/cds');
+const { data } = require('@sap/cds/lib/dbs/cds-deploy');
 const { messages } = require('@sap/cds/lib/i18n');
+const { message } = require('@sap/cds/lib/log/cds-error');
 const { SELECT, INSERT, DELETE, UPDATE } = require('@sap/cds/lib/ql/cds-ql');
 const { parse } = require('csv-parse/sync');
 //const { executeHttpRequest } = require('@sap-cloud-sdk/http-client');
@@ -1118,6 +1120,353 @@ module.exports = cds.service.impl(async function () {
       }
     }
     return mess;
+
+  });
+
+  this.on('OpportunityUpdate', async (req) => {
+    try {
+      const { entity, beforeImgae, currentImage } = req.data;
+      if (currentImage && currentImage.documentType == "ZFO") {
+        let opportunityID = currentImage.displayId;
+        let ETag = currentImage.adminData.updatedOn;
+        const extensionfield = currentImage.extensions;
+        const items = currentImage.items;
+        const account = currentImage.account;
+        var createHeaderData = true;
+        const vinsuccess = await SELECT.from(VinSuccess).where({ parent_opportunityID: opportunityID });
+        const historicHeader = await SELECT.from(HistoricVinHeader).where({ opportunityID: opportunityID });
+        if (historicHeader.length > 0) {
+          createHeaderData = false;
+        }
+        const approvalstatus = currentImage.approvalStatus;
+        const customStatus = currentImage.customStatus;
+        if (approvalstatus == "APPROVED") {
+          var vinCount = vinsuccess.length;
+          const now = new Date();
+          await tx.run(UPDATE(VinSuccess)
+            .set({ dateTime: now })
+            .where({ parent_opportunityID: opportunityID, dateTime: null })
+          );
+          //Create Vinhistoric Header Data
+          if (createHeaderData) {
+            const histHeader = { opportunityID: opportunityID };
+            await INSERT.into(HistoricVinHeader).entries(histHeader);
+          }
+          //Create item Data
+          const newEntries = [];
+          vinsuccess.forEach(element => {
+            items.forEach(item => {
+              newEntries.push({
+                vinID: element.vinID,
+                make_OE: extensionfield['A1DNA-OE'],
+                model: extensionfield['A1DNA-Model'],
+                year: extensionfield['A1DNA-Year'],
+                customerID: account.displayId,
+                parent_opportunityID: opportunityID,
+                productID: item.productDisplayId,
+                product_Desc: item.productDescription
+              });
+            });
+          });
+          // single bulk insert
+          await INSERT.into(HistoricVinItems).entries(newEntries);
+          //Update reports fields
+          const vinSuccesUpdate = await SELECT.from(VinSuccess).where({ parent_opportunityID: opportunityID });
+          var UpdatepayloadQ;
+          var q1Vincount = 0;
+          var q1SpecValue = 0;
+          var q2Vincount = 0;
+          var q2SpecValue = 0;
+          var q3Vincount = 0;
+          var q3SpecValue = 0;
+          var q4Vincount = 0;
+          var q4SpecValue = 0;
+          var total = 0;
+          vinSuccesUpdate.forEach(async element => {
+            var dt = new Date(element.dateTime);
+            var year = dt.getFullYear();
+            var month = dt.getMonth() + 1; // 1–12
+            var day = dt.getDate();
+            if (month >= 1 && month <= 3) {
+              q1Vincount = q1Vincount + 1;
+            }
+            else if (month >= 4 && month <= 6) {
+              q2Vincount = q2Vincount + 1;
+            } else if (month >= 7 && month <= 9) {
+              q3Vincount = q3Vincount + 1;
+            } else if (month >= 10 && month <= 12) {
+              q4Vincount = q4Vincount + 1;
+            }
+          });
+          q1SpecValue = Number(q1Vincount) * Number(extensionfield.SpecValueUnit.content);
+          q2SpecValue = Number(q2Vincount) * Number(extensionfield.SpecValueUnit.content);
+          q3SpecValue = Number(q3Vincount) * Number(extensionfield.SpecValueUnit.content);
+          q4SpecValue = Number(q4Vincount) * Number(extensionfield.SpecValueUnit.content);
+          total = Number(q1SpecValue) + Number(q2SpecValue) + Number(q3SpecValue) + Number(q4SpecValue);
+          UpdatepayloadQ = {
+            "extensions":
+            {
+              "A1DNA-VinCount": String(vinCount),
+              "Q1VinCount": Number(q1Vincount),
+              "Q1SpecValue": {
+                "content": Number(q1SpecValue),
+                "currencyCode": String(currentImage.totalExpectedNetAmount.currencyCode)
+              },
+              "Q2VINCount": Number(q2Vincount),
+              "Q2SpecValue": {
+                "content": Number(q2SpecValue),
+                "currencyCode": String(currentImage.totalExpectedNetAmount.currencyCode)
+              },
+              "Q3VINCount": Number(q3Vincount),
+              "Q3SpecValue": {
+                "content": Number(q3SpecValue),
+                "currencyCode": String(currentImage.totalExpectedNetAmount.currencyCode)
+              },
+              "Q4VINCount": Number(q4Vincount),
+              "Q4SpecValue": {
+                "content": Number(q4SpecValue),
+                "currencyCode": String(currentImage.totalExpectedNetAmount.currencyCode)
+              },
+              "SpecValueQ1": {
+                "content": Number(total),
+                "currencyCode": String(currentImage.totalExpectedNetAmount.currencyCode)
+              }
+
+            }
+          };
+
+          if (UpdatepayloadQ) {
+            try {
+              const respQ1 = await salescloud.send({
+                method: 'PATCH', path: `/sap/c4c/api/v1/opportunity-service/opportunities/${currentImage.id}`,
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Accept': 'application/json',
+                  'If-Match': ETag
+                },
+                data: UpdatepayloadQ
+              });
+
+            } catch (error) {
+              console.error('Excetion in Opportunity Update', error);
+              return {
+                noChanges: true,
+                error: [{
+                  code: 'Opoortunity Update Reports Fields',
+                  message: 'An Unexpected error occured during VUpdate Reports Fields',
+                  target: 'OpportunityUpdate'
+                }]
+              }
+            }
+          }
+
+        } else if (customStatus == "FC") {
+          const UpdatedVinCount = extensionfield['A1DNA-VinCount']
+          const specvalue = currentImage.extensionfield.SpecValueUnit.content;
+          //Calculate spec value per unit
+          var totalNegotiatedValue = currentImage.totalExpectedNetAmount.content;
+          var Specvalue = Number(totalNegotiatedValue) / Number(UpdatedVinCount);
+          var Updatepayload;
+          if (!specvalue || specvalue == 0) {
+            Updatepayload = {
+              "extensions":
+              {
+                "A1DNA-VehicalQuantity": String(UpdatedVinCount),
+                "SpecValueUnit": {
+                  "content": String(Specvalue),
+                  "currencyCode": String(currentImage.totalExpectedNetAmount.currencyCode)
+                }
+              }
+            };
+
+          }
+          else {
+            Updatepayload = {
+              "extensions":
+              {
+                "A1DNA-VehicalQuantity": String(UpdatedVinCount)
+              }
+            };
+
+          }
+          //Updating vehicle Quantity from Vin Count and Spec value per unit
+          try {
+            const respFC = await salescloud.send({
+              method: 'PATCH', path: `/sap/c4c/api/v1/opportunity-service/opportunities/${currentImage.id}`,
+              headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'If-Match': ETag
+              },
+              data: Updatepayload
+            });
+
+          } catch (error) {
+            console.error('Excetion in Opportunity Update', error);
+            return {
+              noChanges: true,
+              error: [{
+                code: 'Opoortunity Update Vehicle Quantity',
+                message: 'An Unexpected error occured during Vehicle Quantity Update',
+                target: 'OpportunityUpdate'
+              }]
+            }
+          }
+
+          items.forEach(async item => {
+            console.log("ID:", item.id);
+            console.log("Quantity:", item.quantity.content);
+            var uom = item.quantity.uomCode;
+            var itempayload = {
+              "quantity":
+              {
+                "content": String(UpdatedVinCount),
+                "uomCode": String(uom)
+              }
+            };
+            try {
+              // Read ETag
+              const restEtag = await salescloud.send({
+                method: 'GET',
+                path: `/sap/c4c/api/v1/opportunity-service/opportunities?$filter=displayId eq '${opportunityID}'`,
+                headers: { Accept: 'application/json' }
+              });
+              ETag = restEtag.value[0].adminData.updatedOn;
+
+              const respItem = await salescloud.send({
+                method: 'PATCH', path: `/sap/c4c/api/v1/opportunity-service/opportunities/${currentImage.id}/items/${item.id}`,
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Accept': 'application/json',
+                  'If-Match': ETag
+                },
+                data: itempayload
+              });
+
+            } catch (error) {
+              console.error('Excetion in Opportunity Update', error);
+              return {
+                noChanges: true,
+                error: [{
+                  code: 'Opoortunity Update Item Quantity',
+                  message: 'An Unexpected error occured during Item Quantity Update',
+                  target: 'OpportunityUpdate'
+                }]
+              }
+            }
+
+          });
+
+        }
+        else {
+          if ((customStatus != "FC")) {
+            const vehicleQuantity = extensionfield['A1DNA-VehicalQuantity']
+            items.forEach(async item => {
+              var itemquantity = item.quantity.content;
+              if (Number(itemquantity != Number(vehicleQuantity))) {
+                console.log("ID:", item.id);
+                console.log("Quantity:", item.quantity.content);
+                var uom1 = item.quantity.uomCode;
+                var itempayload1 = {
+                  "quantity":
+                  {
+                    "content": String(vehicleQuantity),
+                    "uomCode": String(uom1)
+                  }
+                };
+                try {
+                  const resp = await salescloud.send({
+                    method: 'PATCH', path: `/sap/c4c/api/v1/opportunity-service/opportunities/${currentImage.id}/items/${item.id}`,
+                    headers: {
+                      'Content-Type': 'application/json',
+                      'Accept': 'application/json',
+                      'If-Match': ETag
+                    },
+                    data: itempayload1
+                  });
+
+                } catch (error) {
+                  console.error('Excetion in Opportunity Update', error);
+                  return {
+                    noChanges: true,
+                    error: [{
+                      code: 'Opoortunity Update Vehicle Quantity',
+                      message: 'An Unexpected error occured during Vehicle Quantity',
+                      target: 'OpportunityUpdate'
+                    }]
+                  }
+                }
+
+              }
+            });
+
+
+            //Calculate spec value per unit(if spec value is empty then only calculte at one time)
+            var oldSpecvalue = currentImage.extensionfield.SpecValueUnit.content;
+            if (!oldSpecvalue || oldSpecvalue == 0) {
+              var totalNegotiatedValue1 = currentImage.totalExpectedNetAmount.content;
+              var Specvalue1 = Number(totalNegotiatedValue1) / Number(vehicleQuantity);
+              //Updating Spec Value if any change in vehicle quantitys
+              const Updatepayload1 = {
+                "extensions":
+                {
+                  "SpecValueUnit": {
+                    "content": Number(Specvalue1),
+                    "currencyCode": String(currentImage.totalExpectedNetAmount.currencyCode)
+                  }
+                }
+              };
+
+              try {
+                const restEtag1 = await salescloud.send({
+                  method: 'GET',
+                  path: `/sap/c4c/api/v1//opportunity-service/opportunities?$filter=displayId eq '${opportunityID}'`,
+                  headers: { Accept: 'application/json' }
+                });
+                ETag = restEtag1.value[0].adminData.updatedOn;
+                const resp = await salescloud.send({
+                  method: 'PATCH', path: `opportunity-service/opportunities/${currentImage.id}`,
+                  headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'If-Match': ETag
+                  },
+                  data: Updatepayload1
+                });
+
+              } catch (error) {
+                console.error('Excetion in Opportunity Update', error);
+                return {
+                  noChanges: true,
+                  error: [{
+                    code: 'Opoortunity Update Spec value',
+                    message: 'An Unexpected error occured during Spec value',
+                    target: 'OpportunityUpdate'
+                  }]
+                }
+              }
+
+            }
+
+
+          }
+        }
+
+      }
+
+      return { noChanges: false, data: currentImage };
+
+    } catch (error) {
+      console.error('Excetion in Opportunity Update', error);
+      return {
+        noChanges: true,
+        error: [{
+          code: 'Opoortunity Update Vin success and hitoric update',
+          message: 'An Unexpected error occured during validation',
+          target: 'OpportunityUpdate'
+        }]
+      }
+    }
 
   });
 });
