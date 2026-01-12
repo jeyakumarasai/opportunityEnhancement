@@ -1,0 +1,180 @@
+{
+  "_version": "1.76.0",
+  "sap.app": {
+    "id": "historicvin",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:lrop",
+      "version": "1.20.0",
+      "toolsId": "2490bd1d-b32d-4b0d-bc47-79c63c195e3e"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/odata/v4/vinlog/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "odataVersion": "4.0"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.143.2",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.fe.templates": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "historicvin.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "@i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "uri": "i18n/i18n.properties"
+      }
+    },
+    "resources": {
+      "css": []
+    },
+    "routing": {
+      "config": {},
+      "routes": [
+        {
+          "pattern": ":?query:",
+          "name": "historicvindata_HeaderSrvList",
+          "target": "historicvindata_HeaderSrvList"
+        },
+        {
+          "pattern": "historicvindata_HeaderSrv({key}):?query:",
+          "name": "historicvindata_HeaderSrvObjectPage",
+          "target": "historicvindata_HeaderSrvObjectPage"
+        },
+        {
+          "pattern": "historicvindata_HeaderSrv({key})/items({key2}):?query:",
+          "name": "HistoricVinData_ItemsSrvObjectPage",
+          "target": "HistoricVinData_ItemsSrvObjectPage"
+        }
+      ],
+      "targets": {
+        "historicvindata_HeaderSrvList": {
+          "type": "Component",
+          "id": "historicvindata_HeaderSrvList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "contextPath": "/historicvindata_HeaderSrv",
+              "variantManagement": "Page",
+              "navigation": {
+                "historicvindata_HeaderSrv": {
+                  "detail": {
+                    "route": "historicvindata_HeaderSrvObjectPage"
+                  }
+                }
+              },
+              "controlConfiguration": {
+                "@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "ResponsiveTable"
+                  }
+                }
+              },
+              "content": {
+                "header": {
+                  "actions": {
+                    "MigrationUpload": {
+                      "press": "historicvin.ext.controller.UploadMF.UploadMigM",
+                      "visible": true,
+                      "enabled": true,
+                      "text": "{i18n>migrationUpload}"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "historicvindata_HeaderSrvObjectPage": {
+          "type": "Component",
+          "id": "historicvindata_HeaderSrvObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "contextPath": "/historicvindata_HeaderSrv",
+              "navigation": {
+                "items": {
+                  "detail": {
+                    "route": "HistoricVinData_ItemsSrvObjectPage"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "HistoricVinData_ItemsSrvObjectPage": {
+          "type": "Component",
+          "id": "HistoricVinData_ItemsSrvObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "contextPath": "/historicvindata_HeaderSrv/items"
+            }
+          }
+        }
+      }
+    }
+  },
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "transactional"
+  },
+  "sap.cloud": {
+    "public": true,
+    "service": "vinlog.service"
+  }
+}

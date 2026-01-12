@@ -1482,4 +1482,156 @@ module.exports = cds.service.impl(async function () {
     }
 
   });
+
+  this.on('uploadMiGTemp', async (req) => {
+    mess = "handler reached";
+    const { content } = req.data;
+    let records = parse(content, { columns: true, skip_empty_lines: true });
+    console.log(`Parsed ${records.length} records `);
+    mess = `Parsed ${records.length} records `;
+
+    // Group rows by OpportunityID 
+    const grouped = {};
+    for (const row of records) {
+      const oppId = row.OpportunityID;
+      if (!grouped[oppId]) grouped[oppId] = []; grouped[oppId].push(row);
+    }
+
+    // Insert into DB 
+    for (const [oppId, records] of Object.entries(grouped)) {
+      // Insert header 
+      const opp = { opportunityID: oppId };
+      await INSERT.into(HistoricVinHeader).entries(opp);
+      await INSERT.into(VinHeader).entries(opp);
+      const items = records.map(r => ({
+        customerID: r.CutomerID,
+        vinID: r.vinID,
+        productID: r.productID,
+        product_Desc: r.product_Desc,
+        make_OE: r.make_OE,
+        model: r.model,
+        year: r.year,
+        parent_opportunityID: r.OpportunityID
+      }));
+      const vinsucce = records.map(r => ({
+        customerID: r.CutomerID,
+        vinID: r.vinID,
+        make_OE: r.make_OE,
+        model: r.model,
+        year: r.year,
+        parent_opportunityID: r.OpportunityID
+      }));
+      await INSERT.into(HistoricVinItems).entries(items);
+      await INSERT.into(VinSuccess).entries(vinsucce);
+      var opportunityID = oppId;
+      var restAPIResponse;
+      try {
+        restAPIResponse = await salescloud.send({
+          method: 'GET',
+          path: `/sap/c4c/api/v1/opportunity-service/opportunities?$filter=displayId eq '${opportunityID}'`,
+          headers: { Accept: 'application/json' }
+        });
+      } catch (e) {
+        mess = "failed to fetch opportunity REST API";
+        req.error("400", mess);
+      }
+
+      const value = restAPIResponse.value[0];
+      const extensionfield = value.extensions;
+      const Oppitems = value.items;
+      const account = value.account;
+      var createHeaderData = true;
+      console.log(value.id)
+      console.log(value.displayId)
+      var ETag = value.adminData.updatedOn;
+      console.log('Etag value', ETag)
+
+
+      //Update reports fields
+      const vinSuccesUpdate = await SELECT.from(VinSuccess).where({ parent_opportunityID: opportunityID });
+      var UpdatepayloadQ;
+      var q1Vincount = 0;
+      var q1SpecValue = 0;
+      var q2Vincount = 0;
+      var q2SpecValue = 0;
+      var q3Vincount = 0;
+      var q3SpecValue = 0;
+      var q4Vincount = 0;
+      var q4SpecValue = 0;
+      var total = 0;
+      vinSuccesUpdate.forEach(async element => {
+        var dt = new Date(element.dateTime);
+        var year = dt.getFullYear();
+        var month = dt.getMonth() + 1; // 1–12
+        var day = dt.getDate();
+        if (month >= 1 && month <= 3) {
+          q1Vincount = q1Vincount + 1;
+        }
+        else if (month >= 4 && month <= 6) {
+          q2Vincount = q2Vincount + 1;
+        } else if (month >= 7 && month <= 9) {
+          q3Vincount = q3Vincount + 1;
+        } else if (month >= 10 && month <= 12) {
+          q4Vincount = q4Vincount + 1;
+        }
+      });
+      q1SpecValue = Number(q1Vincount) * Number(extensionfield.SpecValueUnit.content);
+      q2SpecValue = Number(q2Vincount) * Number(extensionfield.SpecValueUnit.content);
+      q3SpecValue = Number(q3Vincount) * Number(extensionfield.SpecValueUnit.content);
+      q4SpecValue = Number(q4Vincount) * Number(extensionfield.SpecValueUnit.content);
+      total = Number(q1SpecValue) + Number(q2SpecValue) + Number(q3SpecValue) + Number(q4SpecValue);
+      UpdatepayloadQ = {
+        "extensions":
+        {
+          "A1DNA-VinCount": String(vinCount),
+          "Q1VinCount": Number(q1Vincount),
+          "Q1SpecValue": {
+            "content": Number(q1SpecValue),
+            "currencyCode": String(value.totalExpectedNetAmount.currencyCode)
+          },
+          "Q2VINCount": Number(q2Vincount),
+          "Q2SpecValue": {
+            "content": Number(q2SpecValue),
+            "currencyCode": String(value.totalExpectedNetAmount.currencyCode)
+          },
+          "Q3VINCount": Number(q3Vincount),
+          "Q3SpecValue": {
+            "content": Number(q3SpecValue),
+            "currencyCode": String(value.totalExpectedNetAmount.currencyCode)
+          },
+          "Q4VINCount": Number(q4Vincount),
+          "Q4SpecValue": {
+            "content": Number(q4SpecValue),
+            "currencyCode": String(value.totalExpectedNetAmount.currencyCode)
+          },
+          "SpecValueQ1": {
+            "content": Number(total),
+            "currencyCode": String(value.totalExpectedNetAmount.currencyCode)
+          }
+
+        }
+      };
+
+      if (UpdatepayloadQ) {
+        try {
+          const respQ1 = await salescloud.send({
+            method: 'PATCH', path: `/sap/c4c/api/v1/opportunity-service/opportunities/${value.id}`,
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json',
+              'If-Match': ETag
+            },
+            data: UpdatepayloadQ
+          });
+
+        } catch (e) {
+          mess = "failed to update opportunity spec value";
+          req.error("400", mess);
+        }
+      }
+
+    }
+
+    return mess;
+  });
 });

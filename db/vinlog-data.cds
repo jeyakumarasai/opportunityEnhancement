@@ -65,7 +65,7 @@ entity historicvindata_items : cuid {
     vinID        : String(60) @title: '{i18n>vinID}';
     productID    : String(60) @title: '{i18n>productID}';
     product_Desc : String     @title: '{i18n>product_Desc}';
-    make_OE      : String     @title: '{i18n>make_oe}';
+    make_OE      : String     @title: '{i18n>make_OE}';
     model        : String     @title: '{i18n>model}';
     year         : String(4)  @title: '{i18n>Year}';
     parent       : Association to historicvindata_header;

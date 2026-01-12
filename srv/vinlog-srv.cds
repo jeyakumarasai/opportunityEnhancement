@@ -133,5 +133,7 @@ service vinlogService {
                            currentImage: object,
                            context: object)                                               returns object;
 
+  action uploadMiGTemp(opportunityID: String(35), content: LargeString)                   returns String;
+
 
 }
