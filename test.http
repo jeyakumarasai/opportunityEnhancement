@@ -112,3 +112,1889 @@ Content-Type: application/json
    
 }
 
+###
+POST http://localhost:4004/odata/v4/vinlog/OpportunityUpdate
+Content-Type: application/json
+
+{
+  "entity": "sap.ssc.opportunityservice.entity.opportunity",
+  "beforeImage": {
+    "id": "902fc515-6e5a-4713-af3e-045aa04ba365",
+    "displayId": "sample-text",
+    "externalReferenceId": "sample-text",
+    "name": "sample-text",
+    "startDate": "2023-09-15",
+    "closeDate": "2017-05-20",
+    "expectedRevenueAmount": {
+      "content": 92.19909110106528,
+      "currencyCode": "sample-text"
+    },
+    "totalExpectedNetAmount": {
+      "content": 12.184556247666478,
+      "currencyCode": "sample-text"
+    },
+    "isSubscriptionRelevant": false,
+    "isRenewalOpportunity": false,
+    "annualContractAmount": {
+      "content": 47.63641860336065,
+      "currencyCode": "sample-text"
+    },
+    "totalExpectedQuantity": {
+      "content": 18.492912547662854,
+      "uomCode": "sample-text"
+    },
+    "forecastCategory": "sample-text",
+    "forecastCategoryDescription": "sample-text",
+    "documentType": "sample-text",
+    "documentTypeDescription": "sample-text",
+    "priority": "sample-text",
+    "priorityDescription": "sample-text",
+    "source": "sample-text",
+    "sourceDescription": "sample-text",
+    "reasonForStatus": "sample-text",
+    "reasonForStatusDescription": "sample-text",
+    "category": "sample-text",
+    "categoryDescription": "sample-text",
+    "salesPhase": "sample-text",
+    "salesPhaseDescription": "sample-text",
+    "salesCycle": "sample-text",
+    "salesCycleDescription": "sample-text",
+    "phaseProgress": "sample-text",
+    "phaseProgressDescription": "sample-text",
+    "phaseStartDate": "2022-04-23T01:07:32.796Z",
+    "engagementId": "1d19441b-0482-41ba-8c84-343bbb7f0f0d",
+    "opportunityScore": 60.25179293937981,
+    "engagementScore": 29.2607381939888,
+    "revenueStartDate": "2022-06-28",
+    "revenueEndDate": "2021-11-27",
+    "probability": 70.1918636681512,
+    "weightedNetAmount": {
+      "content": 65.22693808656186,
+      "currencyCode": "sample-text"
+    },
+    "territory": {
+      "id": "5bdb6b32-9928-417f-8040-b3fd49a927ca",
+      "displayId": "sample-text",
+      "name": "sample-text"
+    },
+    "adminData": {
+      "createdBy": "4b5a5789-b946-4178-ba41-1b02c695f320",
+      "createdByName": "sample-text",
+      "createdOn": "2017-02-21T04:32:27.441Z",
+      "updatedBy": "b90a3d38-47ec-47bb-9a87-313bbe1af045",
+      "updatedByName": "sample-text",
+      "updatedOn": "2025-11-20T03:17:06.719Z"
+    },
+    "account": {
+      "description": "sample-text",
+      "displayId": "sample-text",
+      "defaultExternalBusinessPartnerId": "sample-text",
+      "id": "ff9d4e94-d3eb-42e9-a807-e2be415e9846",
+      "topAccountId": "ec20f402-9212-4d54-9a1b-7218e11dcd1c",
+      "topAccountDisplayId": "sample-text",
+      "topAccountName": "sample-text",
+      "parentAccountId": "98f5598a-d208-4d39-ba58-0129c0f67f8e",
+      "parentAccountDisplayId": "sample-text",
+      "parentAccountName": "sample-text",
+      "country": "sample-text",
+      "state": "sample-text",
+      "postalCode": "sample-text"
+    },
+    "campaign": {
+      "id": "b0a35a04-516e-4c6a-9d56-a0c30626cd8c",
+      "name": "sample-text",
+      "displayId": "sample-text"
+    },
+    "individualCustomer": {
+      "description": "sample-text",
+      "displayId": "sample-text",
+      "id": "7a5feb52-4d85-4fd5-b56f-79e2acdb0901"
+    },
+    "primaryContact": {
+      "name": "sample-text",
+      "displayId": "sample-text",
+      "id": "161912ab-2846-4891-b44e-82ca06dd851f"
+    },
+    "owner": {
+      "id": "b9fbecc2-61b2-4a31-a0f6-f28cc7bafb0a",
+      "displayId": "sample-text",
+      "name": "sample-text"
+    },
+    "salesUnit": {
+      "id": "396f7070-45ce-483e-8ec3-8004626aca6e",
+      "displayId": "sample-text",
+      "name": "sample-text"
+    },
+    "salesOrganisation": {
+      "id": "b868f5b1-9ac6-444c-b96b-14fa4fc029c3",
+      "displayId": "sample-text",
+      "name": "sample-text"
+    },
+    "salesOffice": {
+      "id": "51067cae-9920-4ba9-b429-45dc5c7f159a",
+      "displayId": "sample-text",
+      "name": "sample-text"
+    },
+    "salesGroup": {
+      "id": "fe39b0ed-afde-436a-a579-a4aa1e77fd93",
+      "displayId": "sample-text",
+      "name": "sample-text"
+    },
+    "status": "sample-text",
+    "statusDescription": "sample-text",
+    "customStatus": "sample-text",
+    "customStatusDescription": "sample-text",
+    "approvalStatus": "SUBMITTED",
+    "consistencyStatus": "CONSISTENT",
+    "distributionChannel": "sample-text",
+    "distributionChannelDescription": "sample-text",
+    "division": "sample-text",
+    "divisionDescription": "sample-text",
+    "isEndOfPurpose": false,
+    "externalQuoteProcessingStatus": "NOT_STARTED",
+    "prediction": {
+      "closeDate": "2025-07-22",
+      "closeDateConfidenceScore": 30.5504254065454
+    },
+    "items": [
+      {
+        "id": "a645222c-8f79-40aa-9813-0614c3754ec1",
+        "quantity": {
+          "content": 13.104182039387524,
+          "uomCode": "sample-text"
+        },
+        "netAmount": {
+          "content": 79.19045691378415,
+          "currencyCode": "sample-text"
+        },
+        "proposedAmount": {
+          "content": 3.711438039317727,
+          "currencyCode": "sample-text"
+        },
+        "note": {
+          "id": "063c332b-9e17-4a13-be91-ff0f52e39165",
+          "content": "sample-text",
+          "adminData": {
+            "createdBy": "0851200a-1f68-4b57-9257-1f3512f73acf",
+            "createdByName": "sample-text",
+            "createdOn": "2026-01-08T05:31:09.594Z",
+            "updatedBy": "272cd89f-befb-4fa2-885f-085861338c74",
+            "updatedByName": "sample-text",
+            "updatedOn": "2023-08-11T11:18:56.150Z"
+          }
+        },
+        "revenueStartDate": "2017-05-17",
+        "revenueEndDate": "2019-01-24",
+        "productId": "sample-text",
+        "productDisplayId": "sample-text",
+        "productDescription": "sample-text",
+        "billingCycle": "sample-text",
+        "billingCycleDescription": "sample-text",
+        "annualContractAmount": {
+          "content": 19.644318451173604,
+          "currencyCode": "sample-text"
+        },
+        "productCategory": {
+          "displayId": "sample-text",
+          "description": "sample-text",
+          "id": "29466bc1-9ab4-468e-9d6e-1319d867ce40"
+        },
+        "lineNumber": 70.85791756398976,
+        "parentLineNumber": 11.089030373841524,
+        "billingPeriodAmount": {
+          "content": 3.8312494987621903,
+          "currencyCode": "sample-text"
+        },
+        "contractDuration": 67,
+        "contractDurationUnit": "Y",
+        "contractExtensionPeriod": 48,
+        "contractExtensionPeriodUnit": "Y",
+        "isContractAutoRenewal": false,
+        "status": "sample-text",
+        "statusDescription": "sample-text",
+        "customStatus": "sample-text",
+        "customStatusDescription": "sample-text",
+        "reasonForStatus": "sample-text",
+        "reasonForStatusDescription": "sample-text",
+        "convertedQuantity": {
+          "content": 45.20560996606946,
+          "uomCode": "sample-text"
+        },
+        "relatedObject": {
+          "objectId": "sample-text",
+          "displayId": "sample-text",
+          "itemId": "sample-text",
+          "itemDisplayId": "sample-text",
+          "type": "sample-text",
+          "role": "sample-text"
+        },
+        "isFlushAndFilled": false,
+        "extensions": {
+          "A1DNA-FrontAxle": "101",
+          "A1DNA-Class": "101",
+          "A1DNA-Engine": "101",
+          "A1DNA-OE": "10138",
+          "A1DNA-RemainingVINBalance": "sample-text",
+          "A1DNA-VehicalQuantity": "sample-text",
+          "A1DNA-VinCount": "sample-text",
+          "A1DNA-Year": "sample-text",
+          "A1DNA-TrailerMainTypeOPP": [
+            "101"
+          ],
+          "A1DNA-TrailerSubCategory1": [
+            "101"
+          ],
+          "A1DNA-NextSteps": "sample-text",
+          "A1DNA-VehicleType2": "101",
+          "A1DNA-Suspension": "101",
+          "A1DNA-RearAxle": "101",
+          "A1DNA-Model": "sample-text",
+          "A1DNA-Modeldescription": "sample-text",
+          "A1DNA-zAMFocusCategory_NA": [
+            "101"
+          ],
+          "A1DNA-zOpportunityType": "101",
+          "A1DNA-Model1": "sample-text",
+          "A1DNA-Model1description": "sample-text",
+          "A1DNA-ZAMFleetPullOpportunity": false,
+          "A1DNA-ZFleetSpecOpportunity": false,
+          "A1DNA-ZAftermarketOpportunity": false,
+          "A1DNA-ZOEOpportunity": false,
+          "A1DNA-zVehicleDetails": false,
+          "SpecValueUnit": {
+            "content": 27.64907809905708,
+            "currencyCode": "sample-text"
+          },
+          "test": 98,
+          "test2": "sample-text",
+          "Q1VinCount": 50.83865877240896,
+          "Q2VINCount": 32.80911303590983,
+          "Q3VINCount": 99.04747093096375,
+          "Q4VINCount": 58.11957705300301,
+          "Q1SpecValue": {
+            "content": 69.41790897399187,
+            "currencyCode": "sample-text"
+          },
+          "Q2SpecValue": {
+            "content": 79.72373394295573,
+            "currencyCode": "sample-text"
+          },
+          "Q3SpecValue": {
+            "content": 94.23576716799289,
+            "currencyCode": "sample-text"
+          },
+          "Q4SpecValue": {
+            "content": 33.82736872881651,
+            "currencyCode": "sample-text"
+          },
+          "VinLoadDate": "2020-05-18",
+          "SpecValueQ1": {
+            "content": 5.975776305422187,
+            "currencyCode": "sample-text"
+          },
+          "TestQ2": 81.39347042888403,
+          "TestQ3": 15.565091976895928,
+          "TestQ4": 87.72940658964217,
+          "TestQ1": 98.99956388399005
+        }
+      }
+    ],
+    "revenuePlans": [
+      {
+        "id": "4dc3b451-4021-4226-a128-3bbe6dc3f419",
+        "partyId": "58958b84-309a-4204-a5db-fa228da44504",
+        "partyName": "sample-text",
+        "splitPercentage": 1.2186014791950583,
+        "splitAmount": {
+          "content": 47.27586761582643,
+          "currencyCode": "sample-text"
+        },
+        "territory": {
+          "id": "7c74990a-3981-472a-b9f2-5172acc560f5",
+          "displayId": "sample-text",
+          "name": "sample-text"
+        },
+        "salesUnit": {
+          "id": "00727f25-e548-45ec-be86-efe8bf246367",
+          "displayId": "sample-text",
+          "name": "sample-text"
+        }
+      }
+    ],
+    "revenueSchedules": [
+      {
+        "id": "0541d3b7-1766-4271-9ec0-33005aad9282",
+        "revenuePlan": {
+          "id": "16ac62d4-b022-49e2-8cd5-29a5d3f65f1a",
+          "partyId": "5cf271b4-eb8b-4e95-90a4-39e882e3b229"
+        },
+        "item": {
+          "id": "b20d2aa1-1a96-45d0-ad38-8d4a55312ea2",
+          "productId": "9e1d070a-a371-435b-8cb6-4a786fa78335"
+        },
+        "distributionDate": "2019-10-19",
+        "distributionAmount": {
+          "content": 68.04586134385318,
+          "currencyCode": "sample-text"
+        }
+      }
+    ],
+    "snapshots": [
+      {
+        "validEndOn": "2018-03-23T07:44:36.733Z",
+        "validStartOn": "2025-08-13T13:47:03.693Z",
+        "status": "sample-text",
+        "statusDescription": "sample-text",
+        "closeDate": "2023-10-12",
+        "revenueStartDate": "2018-01-14",
+        "expectedRevenueAmount": {
+          "content": 24.07184513285756,
+          "currencyCode": "sample-text"
+        },
+        "totalExpectedNetAmount": {
+          "content": 24.267384177073836,
+          "currencyCode": "sample-text"
+        },
+        "forecastCategory": "sample-text",
+        "forecastCategoryDescription": "sample-text",
+        "salesPhase": "sample-text",
+        "salesPhaseDescription": "sample-text",
+        "sequence": 31
+      }
+    ],
+    "notes": [
+      {
+        "id": "b2f25e87-0f0d-4287-8b4a-1c73a69658e1",
+        "content": "sample-text",
+        "adminData": {
+          "createdBy": "d1e2436c-7a37-43be-bfd0-b6fd8108473d",
+          "createdByName": "sample-text",
+          "createdOn": "2016-06-08T07:49:02.078Z",
+          "updatedBy": "740c4745-5327-4163-be8c-10c6919e17b7",
+          "updatedByName": "sample-text",
+          "updatedOn": "2024-12-11T15:25:40.196Z"
+        }
+      }
+    ],
+    "contacts": [
+      {
+        "id": "6bb3ba32-f1a7-4e4d-83a7-6b6d05977f3f",
+        "partyId": "141d09da-58a2-4313-9900-900a5886a868",
+        "name": "sample-text",
+        "partyDisplayId": "sample-text",
+        "email": "test751@example.com",
+        "jobTitle": "sample-text",
+        "phone": "sample-text",
+        "accountName": "sample-text",
+        "isPrimary": false,
+        "role": "sample-text",
+        "roleDescription": "sample-text",
+        "partyRole": "sample-text",
+        "partyRoleDescription": "sample-text",
+        "partyRoleCategory": "sample-text",
+        "hugRank": 96.53138571884483,
+        "referenceUsages": {},
+        "extensions": {
+          "A1DNA-FrontAxle": "101",
+          "A1DNA-Class": "101",
+          "A1DNA-Engine": "101",
+          "A1DNA-OE": "10138",
+          "A1DNA-RemainingVINBalance": "sample-text",
+          "A1DNA-VehicalQuantity": "sample-text",
+          "A1DNA-VinCount": "sample-text",
+          "A1DNA-Year": "sample-text",
+          "A1DNA-TrailerMainTypeOPP": [
+            "101"
+          ],
+          "A1DNA-TrailerSubCategory1": [
+            "101"
+          ],
+          "A1DNA-NextSteps": "sample-text",
+          "A1DNA-VehicleType2": "101",
+          "A1DNA-Suspension": "101",
+          "A1DNA-RearAxle": "101",
+          "A1DNA-Model": "sample-text",
+          "A1DNA-Modeldescription": "sample-text",
+          "A1DNA-zAMFocusCategory_NA": [
+            "101"
+          ],
+          "A1DNA-zOpportunityType": "101",
+          "A1DNA-Model1": "sample-text",
+          "A1DNA-Model1description": "sample-text",
+          "A1DNA-ZAMFleetPullOpportunity": false,
+          "A1DNA-ZFleetSpecOpportunity": false,
+          "A1DNA-ZAftermarketOpportunity": false,
+          "A1DNA-ZOEOpportunity": false,
+          "A1DNA-zVehicleDetails": false,
+          "SpecValueUnit": {
+            "content": 38.23865076992661,
+            "currencyCode": "sample-text"
+          },
+          "test": 95,
+          "test2": "sample-text",
+          "Q1VinCount": 45.92063615564257,
+          "Q2VINCount": 89.58207461982965,
+          "Q3VINCount": 29.504513135179877,
+          "Q4VINCount": 75.97302666399628,
+          "Q1SpecValue": {
+            "content": 69.50332017149776,
+            "currencyCode": "sample-text"
+          },
+          "Q2SpecValue": {
+            "content": 58.85869471821934,
+            "currencyCode": "sample-text"
+          },
+          "Q3SpecValue": {
+            "content": 25.285736960358918,
+            "currencyCode": "sample-text"
+          },
+          "Q4SpecValue": {
+            "content": 83.77471917774528,
+            "currencyCode": "sample-text"
+          },
+          "VinLoadDate": "2025-01-25",
+          "SpecValueQ1": {
+            "content": 83.61298197414726,
+            "currencyCode": "sample-text"
+          },
+          "TestQ2": 99.85774552915245,
+          "TestQ3": 2.5520160794258118,
+          "TestQ4": 9.537933580577374,
+          "TestQ1": 81.52532540261745
+        }
+      }
+    ],
+    "salesTeam": [
+      {
+        "id": "7a975ec2-bb7a-42e9-b25e-0a1090650d29",
+        "partyId": "be8a2fbf-0946-4a4a-9cb6-1b2f66202345",
+        "partyDisplayId": "sample-text",
+        "name": "sample-text",
+        "email": "test329@example.com",
+        "isPrimary": false,
+        "role": "sample-text",
+        "roleDescription": "sample-text",
+        "roleCategory": "sample-text",
+        "roleCategoryDescription": "sample-text",
+        "extensions": {
+          "A1DNA-FrontAxle": "101",
+          "A1DNA-Class": "101",
+          "A1DNA-Engine": "101",
+          "A1DNA-OE": "10138",
+          "A1DNA-RemainingVINBalance": "sample-text",
+          "A1DNA-VehicalQuantity": "sample-text",
+          "A1DNA-VinCount": "sample-text",
+          "A1DNA-Year": "sample-text",
+          "A1DNA-TrailerMainTypeOPP": [
+            "101"
+          ],
+          "A1DNA-TrailerSubCategory1": [
+            "101"
+          ],
+          "A1DNA-NextSteps": "sample-text",
+          "A1DNA-VehicleType2": "101",
+          "A1DNA-Suspension": "101",
+          "A1DNA-RearAxle": "101",
+          "A1DNA-Model": "sample-text",
+          "A1DNA-Modeldescription": "sample-text",
+          "A1DNA-zAMFocusCategory_NA": [
+            "101"
+          ],
+          "A1DNA-zOpportunityType": "101",
+          "A1DNA-Model1": "sample-text",
+          "A1DNA-Model1description": "sample-text",
+          "A1DNA-ZAMFleetPullOpportunity": false,
+          "A1DNA-ZFleetSpecOpportunity": false,
+          "A1DNA-ZAftermarketOpportunity": false,
+          "A1DNA-ZOEOpportunity": false,
+          "A1DNA-zVehicleDetails": false,
+          "SpecValueUnit": {
+            "content": 96.26618910115212,
+            "currencyCode": "sample-text"
+          },
+          "test": 54,
+          "test2": "sample-text",
+          "Q1VinCount": 80.73836581315845,
+          "Q2VINCount": 83.83479141630232,
+          "Q3VINCount": 35.507592745125294,
+          "Q4VINCount": 30.778784793801606,
+          "Q1SpecValue": {
+            "content": 6.9181103724986315,
+            "currencyCode": "sample-text"
+          },
+          "Q2SpecValue": {
+            "content": 97.33607256785035,
+            "currencyCode": "sample-text"
+          },
+          "Q3SpecValue": {
+            "content": 18.46702923066914,
+            "currencyCode": "sample-text"
+          },
+          "Q4SpecValue": {
+            "content": 25.173745839856565,
+            "currencyCode": "sample-text"
+          },
+          "VinLoadDate": "2018-05-25",
+          "SpecValueQ1": {
+            "content": 9.244429762475193,
+            "currencyCode": "sample-text"
+          },
+          "TestQ2": 24.720286927185953,
+          "TestQ3": 0.24026466999202967,
+          "TestQ4": 25.54718661122024,
+          "TestQ1": 26.95480128750205
+        }
+      }
+    ],
+    "involvedParties": [
+      {
+        "id": "153f3b2d-d451-49ed-bfad-9a9e5cafe466",
+        "partyId": "c9d9a7e2-c1ca-47e9-86a0-f53010040cb7",
+        "partyDisplayId": "sample-text",
+        "name": "sample-text",
+        "isPrimary": false,
+        "role": "sample-text",
+        "roleDescription": "sample-text",
+        "roleCategory": "sample-text",
+        "roleCategoryDescription": "sample-text",
+        "address": "sample-text",
+        "extensions": {
+          "A1DNA-FrontAxle": "101",
+          "A1DNA-Class": "101",
+          "A1DNA-Engine": "101",
+          "A1DNA-OE": "10138",
+          "A1DNA-RemainingVINBalance": "sample-text",
+          "A1DNA-VehicalQuantity": "sample-text",
+          "A1DNA-VinCount": "sample-text",
+          "A1DNA-Year": "sample-text",
+          "A1DNA-TrailerMainTypeOPP": [
+            "101"
+          ],
+          "A1DNA-TrailerSubCategory1": [
+            "101"
+          ],
+          "A1DNA-NextSteps": "sample-text",
+          "A1DNA-VehicleType2": "101",
+          "A1DNA-Suspension": "101",
+          "A1DNA-RearAxle": "101",
+          "A1DNA-Model": "sample-text",
+          "A1DNA-Modeldescription": "sample-text",
+          "A1DNA-zAMFocusCategory_NA": [
+            "101"
+          ],
+          "A1DNA-zOpportunityType": "101",
+          "A1DNA-Model1": "sample-text",
+          "A1DNA-Model1description": "sample-text",
+          "A1DNA-ZAMFleetPullOpportunity": false,
+          "A1DNA-ZFleetSpecOpportunity": false,
+          "A1DNA-ZAftermarketOpportunity": false,
+          "A1DNA-ZOEOpportunity": false,
+          "A1DNA-zVehicleDetails": false,
+          "SpecValueUnit": {
+            "content": 49.54200878273696,
+            "currencyCode": "sample-text"
+          },
+          "test": 91,
+          "test2": "sample-text",
+          "Q1VinCount": 26.639417349360883,
+          "Q2VINCount": 52.94019898865372,
+          "Q3VINCount": 51.11963127274066,
+          "Q4VINCount": 21.69218126218766,
+          "Q1SpecValue": {
+            "content": 82.26101219188422,
+            "currencyCode": "sample-text"
+          },
+          "Q2SpecValue": {
+            "content": 90.20792543888092,
+            "currencyCode": "sample-text"
+          },
+          "Q3SpecValue": {
+            "content": 38.155143056064844,
+            "currencyCode": "sample-text"
+          },
+          "Q4SpecValue": {
+            "content": 20.748075167648494,
+            "currencyCode": "sample-text"
+          },
+          "VinLoadDate": "2023-02-18",
+          "SpecValueQ1": {
+            "content": 53.00503182224929,
+            "currencyCode": "sample-text"
+          },
+          "TestQ2": 59.037186205387115,
+          "TestQ3": 13.479975378140807,
+          "TestQ4": 20.110517623834312,
+          "TestQ1": 28.830273845233023
+        }
+      }
+    ],
+    "relatedObjects": [
+      {
+        "id": "120a39ba-7d53-4cc2-9a1e-8ee3e42227df",
+        "objectId": "sample-text",
+        "displayId": "sample-text",
+        "type": "39",
+        "role": "1",
+        "startDateTime": "2020-12-12T18:22:11.043Z",
+        "dueDateTime": "2018-01-14T13:08:47.808Z",
+        "status": "OPEN",
+        "priority": "IMMEDIATE",
+        "communicationSystemId": "sample-text",
+        "communicationSystemDisplayId": "sample-text"
+      }
+    ],
+    "worklistItems": [
+      {
+        "id": "462b3840-1d70-4060-905e-a46c2b64788b",
+        "type": "ACTION",
+        "salesPhase": "sample-text",
+        "title": "sample-text",
+        "description": "sample-text",
+        "priority": "sample-text",
+        "category": "sample-text",
+        "actionFields": [
+          "sample-text"
+        ],
+        "duration": "sample-text",
+        "relatedObjectId": "f52277d1-72e1-4961-bf6b-22c0a1f85b08",
+        "isMandatory": false,
+        "status": "PROPOSED",
+        "startDateTime": "2024-07-16T16:14:28.521Z",
+        "endDateTime": "2021-02-27T02:54:04.476Z",
+        "isMLProposal": false,
+        "sourceId": "688f311e-bc90-4d9b-9186-9ae776a00e92",
+        "sourceType": "sample-text",
+        "note": {
+          "id": "8b0231a3-4495-4096-9985-2d2fc1a44e25",
+          "content": "sample-text",
+          "adminData": {
+            "createdBy": "44e8f07f-5bc1-48e9-a355-498557994f60",
+            "createdByName": "sample-text",
+            "createdOn": "2020-03-12T15:39:10.801Z",
+            "updatedBy": "5e7f84a0-02d0-4f56-abe9-ad6758ffdec6",
+            "updatedByName": "sample-text",
+            "updatedOn": "2019-04-09T20:38:43.274Z"
+          }
+        },
+        "email": "test329@example.com",
+        "executionSalesPhase": "sample-text"
+      }
+    ],
+    "attachments": [
+      {
+        "id": "bf122c18-85e5-4b7f-a7dd-46d4def13e78",
+        "title": "sample-text",
+        "type": "sample-text",
+        "fileName": "sample-text",
+        "fileSize": "sample-text",
+        "contentType": "sample-text",
+        "category": "sample-text",
+        "uploadUrl": "sample-text",
+        "url": "sample-text",
+        "adminData": {
+          "createdBy": "eb9935d7-b36c-44cd-91d9-aff158b66884",
+          "createdByName": "sample-text",
+          "createdOn": "2018-10-10T06:33:16.167Z",
+          "updatedBy": "37231bb0-09d1-4b37-b95f-bd4f23038dbb",
+          "updatedByName": "sample-text",
+          "updatedOn": "2023-01-26T22:15:31.093Z"
+        }
+      }
+    ],
+    "competitors": [
+      {
+        "id": "8b894df0-5540-42cd-b544-1c13bc02cfc4",
+        "partyId": "644f1bfe-cef7-497b-b14e-b5037e3a353b",
+        "partyDisplayId": "sample-text",
+        "name": "sample-text",
+        "isPrimary": false,
+        "competitorType": "DEAL",
+        "role": "sample-text",
+        "roleDescription": "sample-text",
+        "roleCategory": "sample-text",
+        "roleCategoryDescription": "sample-text",
+        "extensions": {
+          "A1DNA-FrontAxle": "101",
+          "A1DNA-Class": "101",
+          "A1DNA-Engine": "101",
+          "A1DNA-OE": "10138",
+          "A1DNA-RemainingVINBalance": "sample-text",
+          "A1DNA-VehicalQuantity": "sample-text",
+          "A1DNA-VinCount": "sample-text",
+          "A1DNA-Year": "sample-text",
+          "A1DNA-TrailerMainTypeOPP": [
+            "101"
+          ],
+          "A1DNA-TrailerSubCategory1": [
+            "101"
+          ],
+          "A1DNA-NextSteps": "sample-text",
+          "A1DNA-VehicleType2": "101",
+          "A1DNA-Suspension": "101",
+          "A1DNA-RearAxle": "101",
+          "A1DNA-Model": "sample-text",
+          "A1DNA-Modeldescription": "sample-text",
+          "A1DNA-zAMFocusCategory_NA": [
+            "101"
+          ],
+          "A1DNA-zOpportunityType": "101",
+          "A1DNA-Model1": "sample-text",
+          "A1DNA-Model1description": "sample-text",
+          "A1DNA-ZAMFleetPullOpportunity": false,
+          "A1DNA-ZFleetSpecOpportunity": false,
+          "A1DNA-ZAftermarketOpportunity": false,
+          "A1DNA-ZOEOpportunity": false,
+          "A1DNA-zVehicleDetails": false,
+          "SpecValueUnit": {
+            "content": 10.379365179687738,
+            "currencyCode": "sample-text"
+          },
+          "test": 15,
+          "test2": "sample-text",
+          "Q1VinCount": 38.18301449064165,
+          "Q2VINCount": 44.05908284243196,
+          "Q3VINCount": 16.45560935139656,
+          "Q4VINCount": 15.687586623243988,
+          "Q1SpecValue": {
+            "content": 12.19832266215235,
+            "currencyCode": "sample-text"
+          },
+          "Q2SpecValue": {
+            "content": 81.57915668562055,
+            "currencyCode": "sample-text"
+          },
+          "Q3SpecValue": {
+            "content": 13.722310122102499,
+            "currencyCode": "sample-text"
+          },
+          "Q4SpecValue": {
+            "content": 68.28060357365757,
+            "currencyCode": "sample-text"
+          },
+          "VinLoadDate": "2020-07-28",
+          "SpecValueQ1": {
+            "content": 22.482612123712897,
+            "currencyCode": "sample-text"
+          },
+          "TestQ2": 61.87200534623116,
+          "TestQ3": 88.07335190940648,
+          "TestQ4": 74.66597869060934,
+          "TestQ1": 20.344704994931817
+        }
+      }
+    ],
+    "competitorProducts": [
+      {
+        "id": "a83bc56e-e2c9-475b-a243-13e254b177ac",
+        "competitorProductId": "ea84eec7-83e3-42d1-96a6-7fd0941884c3",
+        "competitorProductDisplayId": "sample-text",
+        "competitorProductName": "sample-text",
+        "competitorId": "4a5fb9fd-c145-4614-80ba-24634493b3b9",
+        "competitorDisplayId": "53bb35fa-eccc-4072-a154-fbc858dd343e",
+        "competitorName": "sample-text",
+        "productId": "sample-text",
+        "productDisplayId": "sample-text",
+        "productName": "sample-text",
+        "netUnitPrice": {
+          "content": 24.642958375625312,
+          "currencyCode": "sample-text"
+        },
+        "uomCode": "sample-text",
+        "uomDescription": "sample-text",
+        "comparisonResultCode": "sample-text",
+        "comparisonResultDescription": "sample-text",
+        "status": "sample-text",
+        "extensions": {
+          "A1DNA-FrontAxle": "101",
+          "A1DNA-Class": "101",
+          "A1DNA-Engine": "101",
+          "A1DNA-OE": "10138",
+          "A1DNA-RemainingVINBalance": "sample-text",
+          "A1DNA-VehicalQuantity": "sample-text",
+          "A1DNA-VinCount": "sample-text",
+          "A1DNA-Year": "sample-text",
+          "A1DNA-TrailerMainTypeOPP": [
+            "101"
+          ],
+          "A1DNA-TrailerSubCategory1": [
+            "101"
+          ],
+          "A1DNA-NextSteps": "sample-text",
+          "A1DNA-VehicleType2": "101",
+          "A1DNA-Suspension": "101",
+          "A1DNA-RearAxle": "101",
+          "A1DNA-Model": "sample-text",
+          "A1DNA-Modeldescription": "sample-text",
+          "A1DNA-zAMFocusCategory_NA": [
+            "101"
+          ],
+          "A1DNA-zOpportunityType": "101",
+          "A1DNA-Model1": "sample-text",
+          "A1DNA-Model1description": "sample-text",
+          "A1DNA-ZAMFleetPullOpportunity": false,
+          "A1DNA-ZFleetSpecOpportunity": false,
+          "A1DNA-ZAftermarketOpportunity": false,
+          "A1DNA-ZOEOpportunity": false,
+          "A1DNA-zVehicleDetails": false,
+          "SpecValueUnit": {
+            "content": 20.165262278169394,
+            "currencyCode": "sample-text"
+          },
+          "test": 34,
+          "test2": "sample-text",
+          "Q1VinCount": 8.723438321612775,
+          "Q2VINCount": 74.03901934158057,
+          "Q3VINCount": 94.81691308319569,
+          "Q4VINCount": 77.06415869761258,
+          "Q1SpecValue": {
+            "content": 7.9813005635514855,
+            "currencyCode": "sample-text"
+          },
+          "Q2SpecValue": {
+            "content": 47.92101683560759,
+            "currencyCode": "sample-text"
+          },
+          "Q3SpecValue": {
+            "content": 37.78913912829012,
+            "currencyCode": "sample-text"
+          },
+          "Q4SpecValue": {
+            "content": 34.314179280772805,
+            "currencyCode": "sample-text"
+          },
+          "VinLoadDate": "2017-11-18",
+          "SpecValueQ1": {
+            "content": 12.809128826484084,
+            "currencyCode": "sample-text"
+          },
+          "TestQ2": 8.824272826313972,
+          "TestQ3": 52.993180812336504,
+          "TestQ4": 78.4999871160835,
+          "TestQ1": 40.604453813284636
+        }
+      }
+    ],
+    "territories": [
+      {
+        "id": "3511e46c-793b-4396-bf48-8583d6df31c3",
+        "territoryId": "752459b4-d5d0-47da-8360-b723c1a8e520",
+        "territoryDisplayId": "sample-text",
+        "territoryName": "sample-text",
+        "isPrimary": false
+      }
+    ],
+    "functionalLocations": [
+      {
+        "id": "93898722-f2dd-49c1-a203-cd8e70794838",
+        "functionalLocationId": "6a654428-ccfe-4007-b85c-faf4aa4258e4",
+        "functionalLocationDisplayId": "sample-text",
+        "functionalLocationDescription": "sample-text"
+      }
+    ],
+    "registeredProducts": [
+      {
+        "id": "9c855d9b-d5ba-43d7-b433-f7168f1d3a91",
+        "registeredProductId": "16687d62-956b-420e-bbe1-6f99771b8edd",
+        "registeredProductDisplayId": "sample-text",
+        "registeredProductDescription": "sample-text",
+        "registeredProductSerialId": "sample-text"
+      }
+    ],
+    "installedBases": [
+      {
+        "id": "a96668fa-3d8e-4dc2-b0f4-fb73e98b9baf",
+        "installedBaseId": "1dbbcc24-dbbe-4d8f-b228-cec97f1ae097",
+        "installedBaseDisplayId": "sample-text",
+        "installedBaseDescription": "sample-text"
+      }
+    ],
+    "billToAccount": {
+      "description": "sample-text",
+      "displayId": "sample-text",
+      "id": "6030a976-1926-4bde-8526-20c205137326"
+    },
+    "shipToAccount": {
+      "description": "sample-text",
+      "displayId": "sample-text",
+      "id": "84c6fbf4-fbd2-4a2a-8859-65da0c08bc9a"
+    },
+    "payerAccount": {
+      "description": "sample-text",
+      "displayId": "sample-text",
+      "id": "2ba28c9e-9d13-4617-b261-9945d5532297"
+    },
+    "billToIndividualCustomer": {
+      "description": "sample-text",
+      "displayId": "sample-text",
+      "id": "f5187fda-cb1d-4360-9b56-07257a06d1d9"
+    },
+    "shipToIndividualCustomer": {
+      "description": "sample-text",
+      "displayId": "sample-text",
+      "id": "9ccd0680-c793-4c7f-8c1e-21b056a10fbb"
+    },
+    "payerIndividualCustomer": {
+      "description": "sample-text",
+      "displayId": "sample-text",
+      "id": "dbe6e5f3-1f44-4cf3-965e-d6c710eaca9f"
+    },
+    "referenceUsages": {},
+    "extensions": {
+      "A1DNA-FrontAxle": "101",
+      "A1DNA-Class": "101",
+      "A1DNA-Engine": "101",
+      "A1DNA-OE": "10138",
+      "A1DNA-RemainingVINBalance": "sample-text",
+      "A1DNA-VehicalQuantity": "sample-text",
+      "A1DNA-VinCount": "sample-text",
+      "A1DNA-Year": "sample-text",
+      "A1DNA-TrailerMainTypeOPP": [
+        "101"
+      ],
+      "A1DNA-TrailerSubCategory1": [
+        "101"
+      ],
+      "A1DNA-NextSteps": "sample-text",
+      "A1DNA-VehicleType2": "101",
+      "A1DNA-Suspension": "101",
+      "A1DNA-RearAxle": "101",
+      "A1DNA-Model": "sample-text",
+      "A1DNA-Modeldescription": "sample-text",
+      "A1DNA-zAMFocusCategory_NA": [
+        "101"
+      ],
+      "A1DNA-zOpportunityType": "101",
+      "A1DNA-Model1": "sample-text",
+      "A1DNA-Model1description": "sample-text",
+      "A1DNA-ZAMFleetPullOpportunity": false,
+      "A1DNA-ZFleetSpecOpportunity": false,
+      "A1DNA-ZAftermarketOpportunity": false,
+      "A1DNA-ZOEOpportunity": false,
+      "A1DNA-zVehicleDetails": false,
+      "SpecValueUnit": {
+        "content": 20.888171228580177,
+        "currencyCode": "sample-text"
+      },
+      "test": 22,
+      "test2": "sample-text",
+      "Q1VinCount": 22.708855429664254,
+      "Q2VINCount": 96.47875144146383,
+      "Q3VINCount": 19.805562845431268,
+      "Q4VINCount": 97.12187983095646,
+      "Q1SpecValue": {
+        "content": 77.19868714921176,
+        "currencyCode": "sample-text"
+      },
+      "Q2SpecValue": {
+        "content": 74.31455517653376,
+        "currencyCode": "sample-text"
+      },
+      "Q3SpecValue": {
+        "content": 78.84446398820728,
+        "currencyCode": "sample-text"
+      },
+      "Q4SpecValue": {
+        "content": 73.55630700476468,
+        "currencyCode": "sample-text"
+      },
+      "VinLoadDate": "2020-01-27",
+      "SpecValueQ1": {
+        "content": 85.78809527680278,
+        "currencyCode": "sample-text"
+      },
+      "TestQ2": 36.36610293760896,
+      "TestQ3": 78.4079302335158,
+      "TestQ4": 15.420037228614092,
+      "TestQ1": 20.322360075078905
+    }
+  },
+  "currentImage": {
+    "id": "bc4869f5-cf79-11f0-8567-b9655eabc3a0",
+    "displayId": "50006",
+    "externalReferenceId": "sample-text",
+    "name": "fttt",
+    "startDate": "2025-12-02",
+    "closeDate": "2025-12-29",
+    "expectedRevenueAmount": {
+      "content": 0,
+      "currencyCode": "USD"
+    },
+    "totalExpectedNetAmount": {
+      "content": 400,
+      "currencyCode": "USD"
+    },
+    "isSubscriptionRelevant": false,
+    "isRenewalOpportunity": false,
+    "annualContractAmount": {
+      "content": 0,
+      "currencyCode": "USD"
+    },
+    "totalExpectedQuantity": {
+      "content": 4,
+      "uomCode": "EA"
+    },
+    "forecastCategory": "1",
+    "forecastCategoryDescription": "Pipeline",
+    "documentType": "ZFO",
+    "documentTypeDescription": "Fleet Opportunity",
+    "salesPhase": "006",
+    "salesPhaseDescription": "close",
+    "salesCycle": "001",
+    "salesCycleDescription": "General Opportunity",
+    "phaseProgress": "4",
+    "phaseProgressDescription": "Not Relevant",
+    "weightedNetAmount": {
+      "content": 0,
+      "currencyCode": "USD"
+    },
+    "territory": {
+      "id": "c909df6e-2fc0-429b-8a30-1e24cf2bc02b",
+      "displayId": "sample-text",
+      "name": "sample-text"
+    },
+    "adminData": {
+      "createdBy": "00163e8e-8a04-1ee9-b3ea-1ec2166654ea",
+      "createdByName": "Vijay Kumar",
+      "createdOn": "2025-12-02T12:23:40.147Z",
+      "updatedBy": "51eb36ee-c3bd-11f0-8817-07329ecb0e06",
+      "updatedByName": "Chandrashekhar Balan",
+      "updatedOn": "2026-01-12T11:11:00.246Z"
+    },
+    "account": {
+      "id": "00163ecf-3692-1edc-9baf-adf6ee949c4e",
+      "displayId": "1046674",
+      "description": "DAYTON FREIGHT LINES, INC ATTN: CHRIS BEACH",
+      "country": "US",
+      "state": "OH",
+      "postalCode": "45424",
+      "address": "8251 EXPANSION WAY / HUBER HEIGHTS OH 45424 / US"
+    },
+    "campaign": {
+      "id": "5b824deb-f49b-41aa-aac7-6087d69c32ff",
+      "name": "sample-text",
+      "displayId": "sample-text"
+    },
+    "individualCustomer": {
+      "description": "sample-text",
+      "displayId": "sample-text",
+      "id": "34fb28d3-1988-4a0f-9ee9-edf8a3fbea3d"
+    },
+    "primaryContact": {
+      "name": "sample-text",
+      "displayId": "sample-text",
+      "id": "423ba723-6608-4e3f-8caf-19272f3ebe2c"
+    },
+    "owner": {
+      "id": "be504f33-9180-4b0b-8222-0208499ec30d",
+      "displayId": "sample-text",
+      "name": "sample-text"
+    },
+    "salesUnit": {
+      "id": "49586854-52e9-4d9d-ae6f-ff81b41b094a",
+      "displayId": "sample-text",
+      "name": "sample-text"
+    },
+    "salesOrganisation": {
+      "id": "ec8b4744-cc2e-4ad9-b566-270a645861a5",
+      "displayId": "sample-text",
+      "name": "sample-text"
+    },
+    "salesOffice": {
+      "id": "2bd62966-eab5-45bc-9385-72ce57adefd8",
+      "displayId": "sample-text",
+      "name": "sample-text"
+    },
+    "salesGroup": {
+      "id": "1a3ea186-730d-4c67-8971-80592f070fc3",
+      "displayId": "sample-text",
+      "name": "sample-text"
+    },
+    "status": "4",
+    "statusDescription": "Won",
+    "customStatus": "FC",
+    "customStatusDescription": "Won (Pending Delivery)",
+    "approvalStatus": "APPROVED",
+    "consistencyStatus": "CONSISTENT",
+    "distributionChannel": "sample-text",
+    "distributionChannelDescription": "sample-text",
+    "division": "sample-text",
+    "divisionDescription": "sample-text",
+    "isEndOfPurpose": false,
+    "externalQuoteProcessingStatus": "NOT_STARTED",
+    "prediction": {
+      "closeDate": "2018-03-11",
+      "closeDateConfidenceScore": 89.55723617691547
+    },
+    "items": [
+      {
+        "id": "15e80fd7-cf92-11f0-ba8b-a736353af04c",
+        "lineNumber": 10,
+        "productId": "00163eab-584b-1edb-b687-fa745941dbca",
+        "productDisplayId": "FS0010_TRA",
+        "productDescription": "ABS-8 w/ESP",
+        "productCategory": {
+          "id": "00163eab-5899-1edb-b5a1-6bd37b7da69a",
+          "displayId": "#0020",
+          "description": "Electronics"
+        },
+        "quantity": {
+          "content": 4,
+          "uomCode": "EA",
+          "uomDescription": "Each"
+        },
+        "convertedQuantity": {
+          "content": 4,
+          "uomCode": "EA",
+          "uomDescription": null
+        },
+        "netAmount": {
+          "content": 400,
+          "currencyCode": "USD"
+        },
+        "proposedAmount": {
+          "content": 400,
+          "currencyCode": "USD"
+        },
+        "revenueStartDate": "2025-12-12",
+        "revenueEndDate": "2025-12-12",
+        "extensions": {},
+        "usage": "",
+        "parentLineNumber": 0,
+        "status": "4",
+        "statusDescription": "Won",
+        "customStatus": "WPD",
+        "customStatusDescription": "Won (Pending Delivery)"
+      },
+      {
+        "id": "ecd7777c-e004-11f0-9d4f-2f23d957ce42",
+        "lineNumber": 20,
+        "productId": "00163ea2-017e-1eda-a7ec-8022c39eb52e",
+        "productDisplayId": "K029492",
+        "productDescription": "1 test en",
+        "productCategory": {
+          "id": "00163e36-c27d-1ee7-b8b3-1373870799c4",
+          "displayId": "#11BB",
+          "description": "11BB - Monoblock Compressors single - Liquid co"
+        },
+        "quantity": {
+          "content": 4,
+          "uomCode": "ZPC",
+          "uomDescription": "Piece"
+        },
+        "convertedQuantity": {
+          "content": 0,
+          "uomCode": "EA",
+          "uomDescription": null
+        },
+        "netAmount": {
+          "content": 0,
+          "currencyCode": "USD"
+        },
+        "proposedAmount": {
+          "content": 0,
+          "currencyCode": "USD"
+        },
+        "revenueStartDate": "2025-12-23",
+        "revenueEndDate": "2025-12-23",
+        "extensions": {
+          "A1DNA-MaintConquest": "101",
+          "A1DNA-Competitor": "161",
+          "A1DNA-Confidence": "121",
+          "A1DNA-WL": "101"
+        },
+        "usage": "",
+        "parentLineNumber": 0,
+        "status": "4",
+        "statusDescription": "Won",
+        "customStatus": "WM",
+        "customStatusDescription": "Won (Maintenance)"
+      }
+    ],
+    "revenuePlans": [
+      {
+        "id": "6b829c28-bef3-454d-abfd-cde614d992d7",
+        "partyId": "80459e4e-81dd-486f-8b52-58b3cc10990a",
+        "partyName": "sample-text",
+        "splitPercentage": 37.959168711677194,
+        "splitAmount": {
+          "content": 64.03930287342519,
+          "currencyCode": "sample-text"
+        },
+        "territory": {
+          "id": "e5d59380-c71d-4616-97af-bf3ca38ce736",
+          "displayId": "sample-text",
+          "name": "sample-text"
+        },
+        "salesUnit": {
+          "id": "ceffd6a6-65a9-41e6-bc9f-a5039cdf1b37",
+          "displayId": "sample-text",
+          "name": "sample-text"
+        }
+      }
+    ],
+    "revenueSchedules": [
+      {
+        "id": "b88771ec-7dba-49b8-9da3-9e297a14f2dd",
+        "revenuePlan": {
+          "id": "917941ca-e51d-478b-9ed3-5e7b3d079d38",
+          "partyId": "4e6b76e7-8a53-4070-958e-90374492e6f9"
+        },
+        "item": {
+          "id": "8a312bdb-eed5-4361-a7eb-f7ac94a54eeb",
+          "productId": "ec0e0aeb-de81-4f1c-ac40-f52ee3eb3ffd"
+        },
+        "distributionDate": "2017-04-07",
+        "distributionAmount": {
+          "content": 88.4716386673972,
+          "currencyCode": "sample-text"
+        }
+      }
+    ],
+    "snapshots": [
+      {
+        "validEndOn": "2018-12-22T04:32:34.439Z",
+        "validStartOn": "2022-11-30T11:24:56.720Z",
+        "status": "sample-text",
+        "statusDescription": "sample-text",
+        "closeDate": "2021-06-08",
+        "revenueStartDate": "2024-07-14",
+        "expectedRevenueAmount": {
+          "content": 83.99147863965482,
+          "currencyCode": "sample-text"
+        },
+        "totalExpectedNetAmount": {
+          "content": 20.253220363520086,
+          "currencyCode": "sample-text"
+        },
+        "forecastCategory": "sample-text",
+        "forecastCategoryDescription": "sample-text",
+        "salesPhase": "sample-text",
+        "salesPhaseDescription": "sample-text",
+        "sequence": 85
+      }
+    ],
+    "notes": [
+      {
+        "id": "cfecb8d4-78c0-43f5-8c6e-be91865c079a",
+        "content": "sample-text",
+        "adminData": {
+          "createdBy": "3f788199-b8ee-4307-8a3f-cb7ac999e930",
+          "createdByName": "sample-text",
+          "createdOn": "2025-10-20T03:03:12.346Z",
+          "updatedBy": "fcdad799-97a6-41c6-9341-f7208355666b",
+          "updatedByName": "sample-text",
+          "updatedOn": "2018-06-22T05:52:33.638Z"
+        }
+      }
+    ],
+    "contacts": [
+      {
+        "id": "96747237-9742-4411-8e22-2f0bf114e855",
+        "partyId": "3711fc1b-34a4-494e-82f6-66b9abc599d1",
+        "name": "sample-text",
+        "partyDisplayId": "sample-text",
+        "email": "test697@example.com",
+        "jobTitle": "sample-text",
+        "phone": "sample-text",
+        "accountName": "sample-text",
+        "isPrimary": false,
+        "role": "sample-text",
+        "roleDescription": "sample-text",
+        "partyRole": "sample-text",
+        "partyRoleDescription": "sample-text",
+        "partyRoleCategory": "sample-text",
+        "hugRank": 61.4910910371691,
+        "referenceUsages": {},
+        "extensions": {
+          "A1DNA-FrontAxle": "101",
+          "A1DNA-Class": "101",
+          "A1DNA-Engine": "101",
+          "A1DNA-OE": "10138",
+          "A1DNA-RemainingVINBalance": "sample-text",
+          "A1DNA-VehicalQuantity": "sample-text",
+          "A1DNA-VinCount": "sample-text",
+          "A1DNA-Year": "sample-text",
+          "A1DNA-TrailerMainTypeOPP": [
+            "101"
+          ],
+          "A1DNA-TrailerSubCategory1": [
+            "101"
+          ],
+          "A1DNA-NextSteps": "sample-text",
+          "A1DNA-VehicleType2": "101",
+          "A1DNA-Suspension": "101",
+          "A1DNA-RearAxle": "101",
+          "A1DNA-Model": "sample-text",
+          "A1DNA-Modeldescription": "sample-text",
+          "A1DNA-zAMFocusCategory_NA": [
+            "101"
+          ],
+          "A1DNA-zOpportunityType": "101",
+          "A1DNA-Model1": "sample-text",
+          "A1DNA-Model1description": "sample-text",
+          "A1DNA-ZAMFleetPullOpportunity": false,
+          "A1DNA-ZFleetSpecOpportunity": false,
+          "A1DNA-ZAftermarketOpportunity": false,
+          "A1DNA-ZOEOpportunity": false,
+          "A1DNA-zVehicleDetails": false,
+          "SpecValueUnit": {
+            "content": 93.83447617292404,
+            "currencyCode": "sample-text"
+          },
+          "test": 11,
+          "test2": "sample-text",
+          "Q1VinCount": 66.33334301877767,
+          "Q2VINCount": 48.998246737755835,
+          "Q3VINCount": 49.699823558330536,
+          "Q4VINCount": 77.2175865015015,
+          "Q1SpecValue": {
+            "content": 3.0875478871166706,
+            "currencyCode": "sample-text"
+          },
+          "Q2SpecValue": {
+            "content": 12.605190998874605,
+            "currencyCode": "sample-text"
+          },
+          "Q3SpecValue": {
+            "content": 35.75921205338091,
+            "currencyCode": "sample-text"
+          },
+          "Q4SpecValue": {
+            "content": 85.51570945419371,
+            "currencyCode": "sample-text"
+          },
+          "VinLoadDate": "2021-05-06",
+          "SpecValueQ1": {
+            "content": 51.07459786813706,
+            "currencyCode": "sample-text"
+          },
+          "TestQ2": 12.3424838995561,
+          "TestQ3": 96.40734610147774,
+          "TestQ4": 21.439388627186418,
+          "TestQ1": 0.4924161359667778
+        }
+      }
+    ],
+    "salesTeam": [
+      {
+        "id": "cd3b7482-68de-4002-bfee-63528c2d374b",
+        "partyId": "86be0531-bac7-4d4e-b554-cc2852914678",
+        "partyDisplayId": "sample-text",
+        "name": "sample-text",
+        "email": "test354@example.com",
+        "isPrimary": false,
+        "role": "sample-text",
+        "roleDescription": "sample-text",
+        "roleCategory": "sample-text",
+        "roleCategoryDescription": "sample-text",
+        "extensions": {
+          "A1DNA-FrontAxle": "101",
+          "A1DNA-Class": "101",
+          "A1DNA-Engine": "101",
+          "A1DNA-OE": "10138",
+          "A1DNA-RemainingVINBalance": "sample-text",
+          "A1DNA-VehicalQuantity": "sample-text",
+          "A1DNA-VinCount": "sample-text",
+          "A1DNA-Year": "sample-text",
+          "A1DNA-TrailerMainTypeOPP": [
+            "101"
+          ],
+          "A1DNA-TrailerSubCategory1": [
+            "101"
+          ],
+          "A1DNA-NextSteps": "sample-text",
+          "A1DNA-VehicleType2": "101",
+          "A1DNA-Suspension": "101",
+          "A1DNA-RearAxle": "101",
+          "A1DNA-Model": "sample-text",
+          "A1DNA-Modeldescription": "sample-text",
+          "A1DNA-zAMFocusCategory_NA": [
+            "101"
+          ],
+          "A1DNA-zOpportunityType": "101",
+          "A1DNA-Model1": "sample-text",
+          "A1DNA-Model1description": "sample-text",
+          "A1DNA-ZAMFleetPullOpportunity": false,
+          "A1DNA-ZFleetSpecOpportunity": false,
+          "A1DNA-ZAftermarketOpportunity": false,
+          "A1DNA-ZOEOpportunity": false,
+          "A1DNA-zVehicleDetails": false,
+          "SpecValueUnit": {
+            "content": 68.96362691186368,
+            "currencyCode": "sample-text"
+          },
+          "test": 90,
+          "test2": "sample-text",
+          "Q1VinCount": 44.47291549295187,
+          "Q2VINCount": 30.847278982400894,
+          "Q3VINCount": 18.576879240572453,
+          "Q4VINCount": 48.240069136954844,
+          "Q1SpecValue": {
+            "content": 81.33815398905426,
+            "currencyCode": "sample-text"
+          },
+          "Q2SpecValue": {
+            "content": 55.813946411944926,
+            "currencyCode": "sample-text"
+          },
+          "Q3SpecValue": {
+            "content": 29.184481874108315,
+            "currencyCode": "sample-text"
+          },
+          "Q4SpecValue": {
+            "content": 79.19712841976434,
+            "currencyCode": "sample-text"
+          },
+          "VinLoadDate": "2022-06-03",
+          "SpecValueQ1": {
+            "content": 56.3979129306972,
+            "currencyCode": "sample-text"
+          },
+          "TestQ2": 94.14792533498257,
+          "TestQ3": 57.53751345910132,
+          "TestQ4": 40.887131076306105,
+          "TestQ1": 55.49218892119825
+        }
+      }
+    ],
+    "involvedParties": [
+      {
+        "id": "8ad0d235-80fd-4888-b5ca-9fcabaff48d8",
+        "partyId": "596ffea5-a550-40e7-af1d-5c1e5071d12b",
+        "partyDisplayId": "sample-text",
+        "name": "sample-text",
+        "isPrimary": false,
+        "role": "sample-text",
+        "roleDescription": "sample-text",
+        "roleCategory": "sample-text",
+        "roleCategoryDescription": "sample-text",
+        "address": "sample-text",
+        "extensions": {
+          "A1DNA-FrontAxle": "101",
+          "A1DNA-Class": "101",
+          "A1DNA-Engine": "101",
+          "A1DNA-OE": "10138",
+          "A1DNA-RemainingVINBalance": "sample-text",
+          "A1DNA-VehicalQuantity": "sample-text",
+          "A1DNA-VinCount": "sample-text",
+          "A1DNA-Year": "sample-text",
+          "A1DNA-TrailerMainTypeOPP": [
+            "101"
+          ],
+          "A1DNA-TrailerSubCategory1": [
+            "101"
+          ],
+          "A1DNA-NextSteps": "sample-text",
+          "A1DNA-VehicleType2": "101",
+          "A1DNA-Suspension": "101",
+          "A1DNA-RearAxle": "101",
+          "A1DNA-Model": "sample-text",
+          "A1DNA-Modeldescription": "sample-text",
+          "A1DNA-zAMFocusCategory_NA": [
+            "101"
+          ],
+          "A1DNA-zOpportunityType": "101",
+          "A1DNA-Model1": "sample-text",
+          "A1DNA-Model1description": "sample-text",
+          "A1DNA-ZAMFleetPullOpportunity": false,
+          "A1DNA-ZFleetSpecOpportunity": false,
+          "A1DNA-ZAftermarketOpportunity": false,
+          "A1DNA-ZOEOpportunity": false,
+          "A1DNA-zVehicleDetails": false,
+          "SpecValueUnit": {
+            "content": 2.226684452034533,
+            "currencyCode": "sample-text"
+          },
+          "test": 64,
+          "test2": "sample-text",
+          "Q1VinCount": 36.80836013518274,
+          "Q2VINCount": 76.46151157096028,
+          "Q3VINCount": 84.13062843028456,
+          "Q4VINCount": 34.34428432956338,
+          "Q1SpecValue": {
+            "content": 74.43467590492219,
+            "currencyCode": "sample-text"
+          },
+          "Q2SpecValue": {
+            "content": 58.407565858215094,
+            "currencyCode": "sample-text"
+          },
+          "Q3SpecValue": {
+            "content": 5.010803579352796,
+            "currencyCode": "sample-text"
+          },
+          "Q4SpecValue": {
+            "content": 41.976481792517006,
+            "currencyCode": "sample-text"
+          },
+          "VinLoadDate": "2021-09-14",
+          "SpecValueQ1": {
+            "content": 70.68148932885379,
+            "currencyCode": "sample-text"
+          },
+          "TestQ2": 25.275757047347724,
+          "TestQ3": 70.34354640636593,
+          "TestQ4": 1.431321376003325,
+          "TestQ1": 56.9373884703964
+        }
+      }
+    ],
+    "relatedObjects": [
+      {
+        "id": "da9d0eeb-d3af-4310-b684-4f655c9b4288",
+        "objectId": "sample-text",
+        "displayId": "sample-text",
+        "type": "39",
+        "role": "1",
+        "startDateTime": "2020-02-18T12:34:10.668Z",
+        "dueDateTime": "2018-04-22T21:36:00.601Z",
+        "status": "OPEN",
+        "priority": "IMMEDIATE",
+        "communicationSystemId": "sample-text",
+        "communicationSystemDisplayId": "sample-text"
+      }
+    ],
+    "worklistItems": [
+      {
+        "id": "4c6f25df-c9c1-4c63-8d78-3409bd16a4ae",
+        "type": "ACTION",
+        "salesPhase": "sample-text",
+        "title": "sample-text",
+        "description": "sample-text",
+        "priority": "sample-text",
+        "category": "sample-text",
+        "actionFields": [
+          "sample-text"
+        ],
+        "duration": "sample-text",
+        "relatedObjectId": "94dfba7c-71b3-41ae-af02-b735646efe51",
+        "isMandatory": false,
+        "status": "PROPOSED",
+        "startDateTime": "2016-07-27T00:46:52.270Z",
+        "endDateTime": "2022-05-16T06:52:47.557Z",
+        "isMLProposal": false,
+        "sourceId": "dce926a2-8c65-4eb1-8bac-17dabd356bb8",
+        "sourceType": "sample-text",
+        "note": {
+          "id": "989b076f-1c99-4675-a027-7b64ba38f30d",
+          "content": "sample-text",
+          "adminData": {
+            "createdBy": "e8d67dcd-03d4-49a6-93f0-b8c73732384f",
+            "createdByName": "sample-text",
+            "createdOn": "2016-08-08T01:18:01.798Z",
+            "updatedBy": "ca3dbf52-40c7-41a5-9278-932d25f727ff",
+            "updatedByName": "sample-text",
+            "updatedOn": "2018-11-17T03:55:35.809Z"
+          }
+        },
+        "email": "test97@example.com",
+        "executionSalesPhase": "sample-text"
+      }
+    ],
+    "attachments": [
+      {
+        "id": "5bb03f9c-3b13-498d-8f06-82b95a4996b8",
+        "title": "sample-text",
+        "type": "sample-text",
+        "fileName": "sample-text",
+        "fileSize": "sample-text",
+        "contentType": "sample-text",
+        "category": "sample-text",
+        "uploadUrl": "sample-text",
+        "url": "sample-text",
+        "adminData": {
+          "createdBy": "1da9c367-2dce-4bc2-836d-4623483bade9",
+          "createdByName": "sample-text",
+          "createdOn": "2025-08-19T19:15:42.090Z",
+          "updatedBy": "1c860534-5bf8-49fe-9fc9-254ef2de346f",
+          "updatedByName": "sample-text",
+          "updatedOn": "2024-09-30T16:47:20.214Z"
+        }
+      }
+    ],
+    "competitors": [
+      {
+        "id": "534d6283-a96a-4e71-8ac4-83431fef1db5",
+        "partyId": "806e693b-21bb-40c6-9e9f-240503c7e222",
+        "partyDisplayId": "sample-text",
+        "name": "sample-text",
+        "isPrimary": false,
+        "competitorType": "DEAL",
+        "role": "sample-text",
+        "roleDescription": "sample-text",
+        "roleCategory": "sample-text",
+        "roleCategoryDescription": "sample-text",
+        "extensions": {
+          "A1DNA-FrontAxle": "101",
+          "A1DNA-Class": "101",
+          "A1DNA-Engine": "101",
+          "A1DNA-OE": "10138",
+          "A1DNA-RemainingVINBalance": "sample-text",
+          "A1DNA-VehicalQuantity": "sample-text",
+          "A1DNA-VinCount": "sample-text",
+          "A1DNA-Year": "sample-text",
+          "A1DNA-TrailerMainTypeOPP": [
+            "101"
+          ],
+          "A1DNA-TrailerSubCategory1": [
+            "101"
+          ],
+          "A1DNA-NextSteps": "sample-text",
+          "A1DNA-VehicleType2": "101",
+          "A1DNA-Suspension": "101",
+          "A1DNA-RearAxle": "101",
+          "A1DNA-Model": "sample-text",
+          "A1DNA-Modeldescription": "sample-text",
+          "A1DNA-zAMFocusCategory_NA": [
+            "101"
+          ],
+          "A1DNA-zOpportunityType": "101",
+          "A1DNA-Model1": "sample-text",
+          "A1DNA-Model1description": "sample-text",
+          "A1DNA-ZAMFleetPullOpportunity": false,
+          "A1DNA-ZFleetSpecOpportunity": false,
+          "A1DNA-ZAftermarketOpportunity": false,
+          "A1DNA-ZOEOpportunity": false,
+          "A1DNA-zVehicleDetails": false,
+          "SpecValueUnit": {
+            "content": 75.88568937499076,
+            "currencyCode": "sample-text"
+          },
+          "test": 34,
+          "test2": "sample-text",
+          "Q1VinCount": 29.351477045565844,
+          "Q2VINCount": 85.70425044745207,
+          "Q3VINCount": 86.92066946532577,
+          "Q4VINCount": 65.57553338352591,
+          "Q1SpecValue": {
+            "content": 34.03611497487873,
+            "currencyCode": "sample-text"
+          },
+          "Q2SpecValue": {
+            "content": 23.755012662149966,
+            "currencyCode": "sample-text"
+          },
+          "Q3SpecValue": {
+            "content": 48.18782233633101,
+            "currencyCode": "sample-text"
+          },
+          "Q4SpecValue": {
+            "content": 83.5948983207345,
+            "currencyCode": "sample-text"
+          },
+          "VinLoadDate": "2025-09-03",
+          "SpecValueQ1": {
+            "content": 84.93393980897963,
+            "currencyCode": "sample-text"
+          },
+          "TestQ2": 63.579280651174486,
+          "TestQ3": 94.36455767136067,
+          "TestQ4": 57.3768918402493,
+          "TestQ1": 17.058941768482327
+        }
+      }
+    ],
+    "competitorProducts": [
+      {
+        "id": "62990724-d403-43ee-99c7-51e8c2f5aeea",
+        "competitorProductId": "deec5479-3926-4b3c-9be9-0b96e767c2f0",
+        "competitorProductDisplayId": "sample-text",
+        "competitorProductName": "sample-text",
+        "competitorId": "de6135fb-e975-4a69-838f-fa7ecb1ca2f1",
+        "competitorDisplayId": "76f4b632-293e-44ef-8ed3-25dbf15965b3",
+        "competitorName": "sample-text",
+        "productId": "sample-text",
+        "productDisplayId": "sample-text",
+        "productName": "sample-text",
+        "netUnitPrice": {
+          "content": 33.69997735135257,
+          "currencyCode": "sample-text"
+        },
+        "uomCode": "sample-text",
+        "uomDescription": "sample-text",
+        "comparisonResultCode": "sample-text",
+        "comparisonResultDescription": "sample-text",
+        "status": "sample-text",
+        "extensions": {
+          "A1DNA-FrontAxle": "101",
+          "A1DNA-Class": "101",
+          "A1DNA-Engine": "101",
+          "A1DNA-OE": "10138",
+          "A1DNA-RemainingVINBalance": "sample-text",
+          "A1DNA-VehicalQuantity": "sample-text",
+          "A1DNA-VinCount": "sample-text",
+          "A1DNA-Year": "sample-text",
+          "A1DNA-TrailerMainTypeOPP": [
+            "101"
+          ],
+          "A1DNA-TrailerSubCategory1": [
+            "101"
+          ],
+          "A1DNA-NextSteps": "sample-text",
+          "A1DNA-VehicleType2": "101",
+          "A1DNA-Suspension": "101",
+          "A1DNA-RearAxle": "101",
+          "A1DNA-Model": "sample-text",
+          "A1DNA-Modeldescription": "sample-text",
+          "A1DNA-zAMFocusCategory_NA": [
+            "101"
+          ],
+          "A1DNA-zOpportunityType": "101",
+          "A1DNA-Model1": "sample-text",
+          "A1DNA-Model1description": "sample-text",
+          "A1DNA-ZAMFleetPullOpportunity": false,
+          "A1DNA-ZFleetSpecOpportunity": false,
+          "A1DNA-ZAftermarketOpportunity": false,
+          "A1DNA-ZOEOpportunity": false,
+          "A1DNA-zVehicleDetails": false,
+          "SpecValueUnit": {
+            "content": 76.32294984068722,
+            "currencyCode": "sample-text"
+          },
+          "test": 86,
+          "test2": "sample-text",
+          "Q1VinCount": 86.22187522705644,
+          "Q2VINCount": 96.48459418676794,
+          "Q3VINCount": 54.306372767314315,
+          "Q4VINCount": 64.91684231441468,
+          "Q1SpecValue": {
+            "content": 62.75679795071483,
+            "currencyCode": "sample-text"
+          },
+          "Q2SpecValue": {
+            "content": 20.08514094632119,
+            "currencyCode": "sample-text"
+          },
+          "Q3SpecValue": {
+            "content": 91.21735861990601,
+            "currencyCode": "sample-text"
+          },
+          "Q4SpecValue": {
+            "content": 28.414875944145024,
+            "currencyCode": "sample-text"
+          },
+          "VinLoadDate": "2020-02-16",
+          "SpecValueQ1": {
+            "content": 97.11814345791936,
+            "currencyCode": "sample-text"
+          },
+          "TestQ2": 88.06863254867494,
+          "TestQ3": 14.541502995416522,
+          "TestQ4": 89.65570167638361,
+          "TestQ1": 17.71029115188867
+        }
+      }
+    ],
+    "territories": [
+      {
+        "id": "32d64800-100e-4629-a727-429663f1e3fb",
+        "territoryId": "c5d50b43-29bc-4996-8f33-c0e7681efc2e",
+        "territoryDisplayId": "sample-text",
+        "territoryName": "sample-text",
+        "isPrimary": false
+      }
+    ],
+    "functionalLocations": [
+      {
+        "id": "49a4c417-935d-48b9-b96e-1996de37a594",
+        "functionalLocationId": "111e1689-fe83-4237-a430-876c0e2d14ce",
+        "functionalLocationDisplayId": "sample-text",
+        "functionalLocationDescription": "sample-text"
+      }
+    ],
+    "registeredProducts": [
+      {
+        "id": "b9ec18d3-1f06-453c-b134-c32f3886115b",
+        "registeredProductId": "3cc99aed-319e-42f7-81f3-fb30713d83e2",
+        "registeredProductDisplayId": "sample-text",
+        "registeredProductDescription": "sample-text",
+        "registeredProductSerialId": "sample-text"
+      }
+    ],
+    "installedBases": [
+      {
+        "id": "7ea0c172-cf5c-465c-b9a7-58934193d778",
+        "installedBaseId": "4a8888e9-472a-4927-9939-847c31c574de",
+        "installedBaseDisplayId": "sample-text",
+        "installedBaseDescription": "sample-text"
+      }
+    ],
+    "billToAccount": {
+      "description": "sample-text",
+      "displayId": "sample-text",
+      "id": "c00438d0-dcb2-4c68-86c2-e81ef5e924f0"
+    },
+    "shipToAccount": {
+      "description": "sample-text",
+      "displayId": "sample-text",
+      "id": "66368a29-528e-4187-98e2-93c66c84439f"
+    },
+    "payerAccount": {
+      "description": "sample-text",
+      "displayId": "sample-text",
+      "id": "0f4afcd7-ce09-47a0-9b8a-5ab926186ca4"
+    },
+    "billToIndividualCustomer": {
+      "description": "sample-text",
+      "displayId": "sample-text",
+      "id": "c26dd5f2-2a8b-4161-bc18-6d2c86e4bf98"
+    },
+    "shipToIndividualCustomer": {
+      "description": "sample-text",
+      "displayId": "sample-text",
+      "id": "670f24b4-f653-4c42-bc47-fc36e2380651"
+    },
+    "payerIndividualCustomer": {
+      "description": "sample-text",
+      "displayId": "sample-text",
+      "id": "73cd349b-1da7-42ed-a4b2-b7932bdef06c"
+    },
+    "referenceUsages": {},
+    "extensions": {
+      "Q2SpecValue": {
+        "content": 0,
+        "currencyCode": "USD"
+      },
+      "A1DNA-VehicleType2": "101",
+      "A1DNA-zOpportunityType": "101",
+      "A1DNA-VinCount": "2",
+      "A1DNA-Year": "2021",
+      "A1DNA-OE": "487",
+      "TestQ1": 1000,
+      "Q2VINCount": 0,
+      "Q3SpecValue": {
+        "content": 0,
+        "currencyCode": "USD"
+      },
+      "SpecValueQ1": {
+        "content": 200,
+        "currencyCode": "USD"
+      },
+      "Q1VinCount": 2,
+      "SpecValueUnit": {
+        "content": 0,
+        "currencyCode": "USD"
+      },
+      "Q4VINCount": 0,
+      "Q4SpecValue": {
+        "content": 0,
+        "currencyCode": "USD"
+      },
+      "A1DNA-Model": "931",
+      "Q1SpecValue": {
+        "content": 200,
+        "currencyCode": "USD"
+      },
+      "A1DNA-VehicalQuantity": "9",
+      "Q3VINCount": 0,
+      "A1DNA-Modeldescription": "VNL"
+    }
+  },
+  "context": {
+    "employeeId": "63fda411-bd6c-4eae-9211-11b04c8cd022",
+    "userId": "c684368a-04d0-462e-bf8a-18d3cfdc8211",
+    "skipValidations": false,
+    "isDryRun": false
+  }
+}
+

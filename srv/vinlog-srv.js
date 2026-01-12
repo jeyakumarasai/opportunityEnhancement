@@ -1,3 +1,4 @@
+const { second } = require('@cap-js/hana/lib/cql-functions');
 const cds = require('@sap/cds');
 const { data } = require('@sap/cds/lib/dbs/cds-deploy');
 const { messages } = require('@sap/cds/lib/i18n');
@@ -806,7 +807,7 @@ module.exports = cds.service.impl(async function () {
   });
 
   this.on('Update', async (req) => {
-    const tx = cds.tx(req);
+    const tx5 = cds.tx(req);
     const { opportunityID } = req.data;
     var restAPIResponse;
     try {
@@ -1125,6 +1126,7 @@ module.exports = cds.service.impl(async function () {
 
   this.on('OpportunityUpdate', async (req) => {
     try {
+      const tx = cds.tx(req);
       const { entity, beforeImgae, currentImage } = req.data;
       if (currentImage && currentImage.documentType == "ZFO") {
         let opportunityID = currentImage.displayId;
@@ -1140,7 +1142,7 @@ module.exports = cds.service.impl(async function () {
         }
         const approvalstatus = currentImage.approvalStatus;
         const customStatus = currentImage.customStatus;
-        if (approvalstatus == "APPROVED") {
+        if (approvalstatus == "APPROVED" && customStatus != 'FC') {
           var vinCount = vinsuccess.length;
           const now = new Date();
           await tx.run(UPDATE(VinSuccess)
@@ -1262,7 +1264,7 @@ module.exports = cds.service.impl(async function () {
 
         } else if (customStatus == "FC") {
           const UpdatedVinCount = extensionfield['A1DNA-VinCount']
-          const specvalue = currentImage.extensionfield.SpecValueUnit.content;
+          const specvalue = extensionfield.SpecValueUnit.content;
           //Calculate spec value per unit
           var totalNegotiatedValue = currentImage.totalExpectedNetAmount.content;
           var Specvalue = Number(totalNegotiatedValue) / Number(UpdatedVinCount);
@@ -1273,7 +1275,7 @@ module.exports = cds.service.impl(async function () {
               {
                 "A1DNA-VehicalQuantity": String(UpdatedVinCount),
                 "SpecValueUnit": {
-                  "content": String(Specvalue),
+                  "content": Number(Specvalue),
                   "currencyCode": String(currentImage.totalExpectedNetAmount.currencyCode)
                 }
               }
@@ -1361,6 +1363,66 @@ module.exports = cds.service.impl(async function () {
         else {
           if ((customStatus != "FC")) {
             const vehicleQuantity = extensionfield['A1DNA-VehicalQuantity']
+
+            //Calculate spec value per unit(if spec value is empty then only calculte at one time)
+            var oldSpecvalue = extensionfield.SpecValueUnit.content;
+            if (!oldSpecvalue || oldSpecvalue == 0) {
+              var totalNegotiatedValue1 = currentImage.totalExpectedNetAmount.content;
+              var Specvalue1 = Number(totalNegotiatedValue1) / Number(vehicleQuantity);
+              //Updating Spec Value if any change in vehicle quantitys
+              const Updatepayload1 = {
+                "extensions":
+                {
+                  "SpecValueUnit": {
+                    "content": Number(Specvalue1),
+                    "currencyCode": String(currentImage.totalExpectedNetAmount.currencyCode)
+                  }
+                }
+              };
+
+              try {
+                const resp = await salescloud.send({
+                  method: 'PATCH', path: `/sap/c4c/api/v1/opportunity-service/opportunities/${currentImage.id}`,
+                  headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'If-Match': ETag
+                  },
+                  data: Updatepayload1
+                });
+
+              } catch (error) {
+                console.error('Excetion in Opportunity Update', error);
+                return {
+                  noChanges: true,
+                  error: [{
+                    code: 'Opoortunity Update Spec value',
+                    message: 'An Unexpected error occured during Spec value',
+                    target: 'OpportunityUpdate'
+                  }]
+                }
+              }
+
+            }
+            try {
+              const restEtag1 = await salescloud.send({
+                method: 'GET',
+                path: `/sap/c4c/api/v1/opportunity-service/opportunities?$filter=displayId eq '${opportunityID}'`,
+                headers: { Accept: 'application/json' }
+              });
+              ETag = restEtag1.value[0].adminData.updatedOn;
+            } catch (error) {
+              console.error('Excetion in Opportunity Update', error);
+              return {
+                noChanges: true,
+                error: [{
+                  code: 'Opoortunity Update Item Quantity',
+                  message: 'An Unexpected error occured during Reading Etag',
+                  target: 'OpportunityUpdate'
+                }]
+              }
+            }
+
             items.forEach(async item => {
               var itemquantity = item.quantity.content;
               if (Number(itemquantity != Number(vehicleQuantity))) {
@@ -1399,55 +1461,6 @@ module.exports = cds.service.impl(async function () {
 
               }
             });
-
-
-            //Calculate spec value per unit(if spec value is empty then only calculte at one time)
-            var oldSpecvalue = currentImage.extensionfield.SpecValueUnit.content;
-            if (!oldSpecvalue || oldSpecvalue == 0) {
-              var totalNegotiatedValue1 = currentImage.totalExpectedNetAmount.content;
-              var Specvalue1 = Number(totalNegotiatedValue1) / Number(vehicleQuantity);
-              //Updating Spec Value if any change in vehicle quantitys
-              const Updatepayload1 = {
-                "extensions":
-                {
-                  "SpecValueUnit": {
-                    "content": Number(Specvalue1),
-                    "currencyCode": String(currentImage.totalExpectedNetAmount.currencyCode)
-                  }
-                }
-              };
-
-              try {
-                const restEtag1 = await salescloud.send({
-                  method: 'GET',
-                  path: `/sap/c4c/api/v1//opportunity-service/opportunities?$filter=displayId eq '${opportunityID}'`,
-                  headers: { Accept: 'application/json' }
-                });
-                ETag = restEtag1.value[0].adminData.updatedOn;
-                const resp = await salescloud.send({
-                  method: 'PATCH', path: `opportunity-service/opportunities/${currentImage.id}`,
-                  headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                    'If-Match': ETag
-                  },
-                  data: Updatepayload1
-                });
-
-              } catch (error) {
-                console.error('Excetion in Opportunity Update', error);
-                return {
-                  noChanges: true,
-                  error: [{
-                    code: 'Opoortunity Update Spec value',
-                    message: 'An Unexpected error occured during Spec value',
-                    target: 'OpportunityUpdate'
-                  }]
-                }
-              }
-
-            }
-
 
           }
         }
