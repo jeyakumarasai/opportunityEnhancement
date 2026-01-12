@@ -1535,8 +1535,9 @@ module.exports = cds.service.impl(async function () {
         mess = "failed to fetch opportunity REST API";
         req.error("400", mess);
       }
-
+    
       const value = restAPIResponse.value[0];
+      if (value) {
       const extensionfield = value.extensions;
       const Oppitems = value.items;
       const account = value.account;
@@ -1629,6 +1630,7 @@ module.exports = cds.service.impl(async function () {
           req.error("400", mess);
         }
       }
+    }
 
     }
 
