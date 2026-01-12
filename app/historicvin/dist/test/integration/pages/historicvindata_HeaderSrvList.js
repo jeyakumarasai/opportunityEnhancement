@@ -1,0 +1,2 @@
+sap.ui.define(["sap/fe/test/ListReport"],function(t){"use strict";var i={actions:{},assertions:{}};return new t({appId:"historicvin",componentId:"historicvindata_HeaderSrvList",contextPath:"/historicvindata_HeaderSrv"},i)});
+//# sourceMappingURL=historicvindata_HeaderSrvList.js.map

@@ -1,0 +1,2 @@
+sap.ui.define(["sap/fe/test/ObjectPage"],function(t){"use strict";var e={actions:{},assertions:{}};return new t({appId:"historicvin",componentId:"historicvindata_HeaderSrvObjectPage",contextPath:"/historicvindata_HeaderSrv"},e)});
+//# sourceMappingURL=historicvindata_HeaderSrvObjectPage.js.map
