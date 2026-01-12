@@ -1,0 +1,27 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:u="sap.ui.unified"
+                         xmlns="sap.m">
+    <Dialog id="uploadDialog" title="Import Vin Data" class="sapUiResponsiveContentPadding" beforeOpen=".onBeforeOpen"
+            afterClose=".onAfterClose">
+        <content>
+            <u:FileUploader
+                    id="uploader"
+                    name="csv"
+                    multiple="false"
+                    fileAllowed=".onFileAllowed"
+                    fileEmpty=".onFileEmpty"
+                    uploadComplete=".onUploadComplete"
+                    typeMissmatch=".onTypeMismatch"
+                    change=".onFileChange"
+                    sendXHR="true"
+                    useMultipart="false"
+                    placeholder="Choose a CSV file..."
+                    httpRequestMethod="Post"/>
+        </content>
+        <beginButton>
+            <Button id="ok" text="OK" press=".onOk" type="Emphasized" enabled="false"/>
+        </beginButton>
+        <endButton>
+            <Button id="cancel" text="Cancel" press=".onCancel"/>
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>
