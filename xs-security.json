@@ -2,6 +2,11 @@
  "tenant-mode": "dedicated",
  "description": "Security profile of called application",
  "scopes": [
+    {
+        "name" :"uaa.user",
+        "description": "UAA"
+    },
+
   {
    "name": "$XSAPPNAME.Reader",
    "description": "Read access"
@@ -35,11 +40,10 @@
  "oauth2-configuration": {
   "token-validity": 900,
   "redirect-uris": [
-   "https://kb-dev-salescloudv2-vinlog.cfapps.eu20-001.hana.ondemand.com/login/callback"
-  ],
-  "credential-types": [
-   "binding-secret",
-   "x509"
+   "https://kb-dev-salescloudv2-vinlog.cfapps.eu20-001.hana.ondemand.com/login/callback",
+   "https://*.authentication.eu20.hana.ondemand.com/**",
+   "https://*hana.ondemand.com/**",
+   "https://localhost:*/**"
   ]
  },
  "xsenableasyncservice": "true"

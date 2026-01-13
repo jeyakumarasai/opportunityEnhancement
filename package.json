@@ -44,10 +44,11 @@
           }
         },
         "[production]": {
-          "kind": "xsuaa",
-          "name": "vinlog-auth"
+          "kind": "xsuaa"
         }
       },
+      "connectivity": true,
+      "desrinations": true,
       "OpportunityService": {
         "kind": "rest",
         "[development]": {

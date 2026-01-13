@@ -10,6 +10,7 @@ modules:
   - name: vinlog-db
   - name: vinlog-auth
   - name: vinlog-destination
+  - name: vinlog-connectiity
   provides:
   - name: srv-api
     properties:
@@ -104,6 +105,12 @@ modules:
           ServiceKeyName: vinlog-html5-repo-host-key
           sap.cloud.service: vinlog.service
         - Authentication: OAuth2UserTokenExchange
+          Name: vinlog-cap-app-srv
+          TokenServiceInstanceName: vinlog-auth
+          TokenServiceKeyName: vinlog-auth-key
+          URL: "~{srv-api/srv-url}"
+          sap.cloud.service: vinlog.service
+        - Authentication: OAuth2UserTokenExchange
           Name: vinlog-auth
           ServiceInstanceName: vinlog-auth
           ServiceKeyName: vinlog-auth-key
@@ -161,6 +168,11 @@ resources:
     path: ./xs-security.json
     service: xsuaa
     service-plan: application
+- name: vinlog-connectiity
+  type: org.cloudfoundry.managed-service
+  parameters:
+   service: conectivity
+   service-plan: lite
 - name: vinlog-html5-repo-host
   type: org.cloudfoundry.managed-service
   parameters:

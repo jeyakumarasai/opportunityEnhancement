@@ -6,7 +6,7 @@ using {
   db.vinlog.historicvindata_items
 } from '../db/vinlog-data';
 
-
+@(requires: 'authenticated-user')
 service vinlogService {
 
   @UI.HeaderInfo: {
@@ -19,6 +19,7 @@ service vinlogService {
   }
 
   @odata.draft.enabled
+  @cds.redirection.target: true
   entity vinHeaderSrv  as
     projection on vinheader {
       *,
@@ -31,7 +32,11 @@ service vinlogService {
   entity vinFailureSrv  as projection on vinfailure;
 
   @odata.draft.enabled
-  entity historicvindata_HeaderSrv  as projection on historicvindata_header;
+  @cds.redirection.target: true
+  entity historicvindata_HeaderSrv  as projection on historicvindata_header {
+    *,
+    items : redirected to HistoricVinData_ItemsSrv
+  };
 
   entity HistoricVinData_ItemsSrv  as projection on historicvindata_items;
 
