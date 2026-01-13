@@ -10,7 +10,6 @@ modules:
   - name: vinlog-db
   - name: vinlog-auth
   - name: vinlog-destination
-  - name: vinlog-connectivity
   provides:
   - name: srv-api
     properties:
@@ -168,11 +167,6 @@ resources:
     path: ./xs-security.json
     service: xsuaa
     service-plan: application
-- name: vinlog-connectivity
-  type: org.cloudfoundry.managed-service
-  parameters:
-   service: conectivity
-   service-plan: connectivity_proxy
 - name: vinlog-html5-repo-host
   type: org.cloudfoundry.managed-service
   parameters:
