@@ -1,2 +1,0 @@
-sap.ui.define(["sap/fe/test/JourneyRunner","historicvin/test/integration/pages/historicvindata_HeaderSrvList","historicvin/test/integration/pages/historicvindata_HeaderSrvObjectPage","historicvin/test/integration/pages/HistoricVinData_ItemsSrvObjectPage"],function(t,e,i,r){"use strict";var a=new t({launchUrl:sap.ui.require.toUrl("historicvin")+"/test/flp.html#app-preview",pages:{onThehistoricvindata_HeaderSrvList:e,onThehistoricvindata_HeaderSrvObjectPage:i,onTheHistoricVinData_ItemsSrvObjectPage:r},async:true});return a});
-//# sourceMappingURL=JourneyRunner.js.map

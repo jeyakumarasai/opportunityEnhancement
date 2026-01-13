@@ -19,106 +19,21 @@ service vinlogService {
   }
 
   @odata.draft.enabled
-  entity vinHeaderSrv @(restrict: [
-    {
-      grant: 'READ',
-      to   : 'Reader'
-    },
-    {
-      grant: 'CREATE',
-      to   : 'Writer'
-    },
-    {
-      grant: 'UPDATE',
-      to   : 'Writer'
-    },
-    {
-      grant: 'DELETE',
-      to   : 'Writer'
-    }
-  ]) as
+  entity vinHeaderSrv  as
     projection on vinheader {
       *,
       items_success : redirected to vinSuccessSrv,
       items_failure : redirected to vinFailureSrv
     };
 
-  entity vinSuccessSrv @(restrict: [
-    {
-      grant: 'READ',
-      to   : 'Reader'
-    },
-    {
-      grant: 'CREATE',
-      to   : 'Writer'
-    },
-    {
-      grant: 'UPDATE',
-      to   : 'Writer'
-    },
-    {
-      grant: 'DELETE',
-      to   : 'Writer'
-    }
-  ]) as projection on vinsuccess;
+  entity vinSuccessSrv  as projection on vinsuccess;
 
-  entity vinFailureSrv @(restrict: [
-    {
-      grant: 'READ',
-      to   : 'Reader'
-    },
-    {
-      grant: 'CREATE',
-      to   : 'Writer'
-    },
-    {
-      grant: 'UPDATE',
-      to   : 'Writer'
-    },
-    {
-      grant: 'DELETE',
-      to   : 'Writer'
-    }
-  ]) as projection on vinfailure;
+  entity vinFailureSrv  as projection on vinfailure;
 
   @odata.draft.enabled
-  entity historicvindata_HeaderSrv @(restrict: [
-    {
-      grant: 'READ',
-      to   : 'Reader'
-    },
-    {
-      grant: 'CREATE',
-      to   : 'Writer'
-    },
-    {
-      grant: 'UPDATE',
-      to   : 'Writer'
-    },
-    {
-      grant: 'DELETE',
-      to   : 'Writer'
-    }
-  ]) as projection on historicvindata_header;
+  entity historicvindata_HeaderSrv  as projection on historicvindata_header;
 
-  entity HistoricVinData_ItemsSrv @(restrict: [
-    {
-      grant: 'READ',
-      to   : 'Reader'
-    },
-    {
-      grant: 'CREATE',
-      to   : 'Writer'
-    },
-    {
-      grant: 'UPDATE',
-      to   : 'Writer'
-    },
-    {
-      grant: 'DELETE',
-      to   : 'Writer'
-    }
-  ]) as projection on historicvindata_items;
+  entity HistoricVinData_ItemsSrv  as projection on historicvindata_items;
 
 
   action uploadCSV(opportunityID: String(35), content: LargeString)     returns String;
